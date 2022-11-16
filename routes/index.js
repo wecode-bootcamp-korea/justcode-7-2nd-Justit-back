@@ -1,11 +1,9 @@
 const express = require('express');
-
-const userRouter = require('./user');
-// const otherRouter = require('./other');
+const middleware = require('../middlewares/middleware');
+const userRouter = require('./user.route');
 
 const router = express.Router();
-
 router.use(userRouter);
-// router.use(otherRouter);
+router.use(middleware.errorHandler);
 
 module.exports = router;

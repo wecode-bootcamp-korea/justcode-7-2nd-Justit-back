@@ -141,7 +141,7 @@ CREATE TABLE `users` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `email` varchar(45) UNIQUE NOT NULL,
   `users_name` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `birth` integer DEFAULT NULL,
   `phone_number` integer DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
