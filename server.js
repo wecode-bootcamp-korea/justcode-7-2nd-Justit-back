@@ -1,15 +1,10 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
 const { createApp } = require('./app');
 
-const startServer = async () => {
-  const app = createApp();
-  const PORT = process.env.PORT || 8001;
+const app = createApp();
 
-  app.listen(PORT, () => {
-    console.log(`server start : http://localhost:${PORT}/`);
-  });
-};
-
-startServer();
+// init
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  // eslint-disable-next-line
+  console.log(`Server is running on port ${PORT}.`);
+});
