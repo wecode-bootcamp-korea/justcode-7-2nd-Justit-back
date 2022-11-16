@@ -16,11 +16,21 @@ CREATE TABLE `apply_status` (
 CREATE TABLE `company` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `company_name` varchar(50) NOT NULL,
-  `tag_id` integer DEFAULT NULL,
-  `image` varchar(200) DEFAULT NULL,
   `location` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `image` (
+  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `company_id` integer NOT NULL,
+  `image` varchar(200) DEFAULT NULL
+);
+
+CREATE TABLE `company_tag` (
+  `id` integer PRIMARY KEY  NOT NULL AUTO_INCREMENT,
+  `tag_id` integer NOT NULL,
+  `company_id` integer NOT NULL
 );
 
 CREATE TABLE `education` (
@@ -153,7 +163,11 @@ CREATE TABLE `posts_tech_stack` (
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`apply_status_id`) REFERENCES `apply_status` (`id`);
 
-  ALTER TABLE `company` ADD FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`);
+  ALTER TABLE `image` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
+
+  ALTER TABLE `company_tag` ADD FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`);
+  
+  ALTER TABLE `company_tag` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
   ALTER TABLE `mypage` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
