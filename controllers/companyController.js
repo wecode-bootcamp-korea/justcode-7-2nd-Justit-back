@@ -1,9 +1,9 @@
 const companyService = require('../services/companyService');
 
-const company = async (req, res) => {
+const getCompanyPage = async (req, res) => {
   try {
     const companyId = req.params.id
-    const companyPage = await companyService.company(companyId);
+    const companyPage = await companyService.getCompanyPage(companyId);
     res.status(200).json(companyPage);
   } catch (err) {
     console.log(err);
@@ -11,4 +11,4 @@ const company = async (req, res) => {
   }
 }
 
-module.exports = { company }
+module.exports = { getCompanyPage }

@@ -1,8 +1,7 @@
-const { json } = require('express');
 const myDataSource = require('../middlewares/typeorm')
 myDataSource.initialize()
 
-const company = async (companyId) => {
+const getCompanyPage = async (companyId) => {
   let companyPage = await myDataSource.query(`
   SELECT
     company.id, company.company_name, ct.tags, ci.images, company.location
@@ -81,4 +80,4 @@ const company = async (companyId) => {
   return result
 }
 
-module.exports = { company }
+module.exports = { getCompanyPage }
