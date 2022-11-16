@@ -2,7 +2,7 @@
 -- migrate:up
 CREATE TABLE `apply` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `post_id` integer NOT NULL,
+  `posts_id` integer NOT NULL,
   `users_id` integer NOT NULL,
   `resume_id` integer NOT NULL,
   `apply_status_id` integer NOT NULL
@@ -19,8 +19,8 @@ CREATE TABLE `company` (
   `tag_id` integer DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
   `location` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `education` (
@@ -43,7 +43,6 @@ CREATE TABLE `posts` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `position_id` integer NOT NULL,
   `title` varchar(200) NOT NULL,
-  `tech_stack_id` integer NULL,
   `content` varchar(1000) NOT NULL,
   `career_min` varchar(50) NOT NULL,
   `career_max` varchar(50) NULL,
@@ -51,8 +50,8 @@ CREATE TABLE `posts` (
   `due_date` varchar(20) DEFAULT NULL,
   `view` integer DEFAULT NULL,
   `company_id` integer DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `resume` (
@@ -76,20 +75,20 @@ CREATE TABLE `resume_career` (
   `department` varchar(45) DEFAULT NULL,
   `tech_stack_id` integer DEFAULT NULL,
   `result` varchar(200) DEFAULT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 );
 
 CREATE TABLE `resume_education` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `users_id` integer NOT NULL,
   `year_month` date NOT NULL,
-  `school_id` integer NOT NULL,
+  `education_id` integer NOT NULL,
   `resume_education_name` varchar(45) NOT NULL,
   `department` varchar(45) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 );
 
 CREATE TABLE `school` (
@@ -99,7 +98,7 @@ CREATE TABLE `school` (
 
 CREATE TABLE `scrap` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `post_id` integer NOT NULL,
+  `posts_id` integer NOT NULL,
   `users_id` integer NOT NULL
 );
 
@@ -109,7 +108,7 @@ CREATE TABLE `sns_info` (
   `sns_type` varchar(45) DEFAULT NULL,
   `sns_name` varchar(45) DEFAULT NULL,
   `sns_profile` varchar(45) DEFAULT NULL,
-  `sns_connect_date` timestamp DEFAULT NULL
+  `sns_connect_date` datetime DEFAULT NULL
 );
 
 CREATE TABLE `tag` (
@@ -124,7 +123,7 @@ CREATE TABLE `tech_stack` (
 
 CREATE TABLE `user_log` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `login_date` timestamp DEFAULT NULL,
+  `login_date` datetime DEFAULT NULL,
   `login_status` varchar(45) DEFAULT NULL
 );
 
@@ -135,11 +134,18 @@ CREATE TABLE `users` (
   `password` varchar(45) NOT NULL,
   `birth` integer DEFAULT NULL,
   `phone_number` integer DEFAULT NULL,
-  `created_at` timestamp DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` integer DEFAULT NULL
 );
 
-  ALTER TABLE `apply` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+CREATE TABLE `posts_tech_stack` (
+  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `posts_id` integer DEFAULT NULL,
+  `tech_stack_id` integer DEFAULT NULL
+);
+
+
+  ALTER TABLE `apply` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
@@ -154,8 +160,6 @@ CREATE TABLE `users` (
   ALTER TABLE `mypage` ADD FOREIGN KEY (`apply_id`) REFERENCES `apply` (`id`);
 
   ALTER TABLE `posts` ADD FOREIGN KEY (`position_id`) REFERENCES `position` (`id`);
-
-  ALTER TABLE `posts` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
   ALTER TABLE `posts` ADD FOREIGN KEY (`education_id`) REFERENCES `education` (`id`);
 
@@ -173,15 +177,19 @@ CREATE TABLE `users` (
 
   ALTER TABLE `resume_career` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
-  ALTER TABLE `resume_education` ADD FOREIGN KEY (`school_id`) REFERENCES `school` (`id`);
+  ALTER TABLE `resume_education` ADD FOREIGN KEY (`education_id`) REFERENCES `education` (`id`);
 
-  ALTER TABLE `scrap` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+  ALTER TABLE `scrap` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
 
   ALTER TABLE `scrap` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
   ALTER TABLE `sns_info` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`);
 
   ALTER TABLE `user_log` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`);
+
+  ALTER TABLE `posts_tech_stack` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
+
+  ALTER TABLE `posts_tech_stack` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
 
 -- migrate:down
