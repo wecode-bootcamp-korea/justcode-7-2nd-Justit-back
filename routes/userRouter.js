@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mw = require('../middlewares/middleware');
+const mw = require('../middlewares/tokenError');
 const { asyncWrap } = require('../utils/myutils');
 
 const { signup, login, getMe } = require('../controllers/userController');

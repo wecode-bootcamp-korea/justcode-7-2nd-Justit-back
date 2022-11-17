@@ -1,5 +1,5 @@
 const express = require('express');
-const middleware = require('../middlewares/middleware');
+const middleware = require('../middlewares/tokenError');
 const userRouter = require('./userRouter');
 const companyRouter = require('./companyRouter');
 const postsRouter = require('./postsRouter');

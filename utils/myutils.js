@@ -16,10 +16,6 @@ const checkDataIsNotEmpty = targetData => {
   });
 };
 
-const isObjectEmpty = object => {
-  return Object.keys(object).length === 0;
-};
-
 const bodyText = req => {
   let bodyText = '';
   if (req.method !== 'GET') {
@@ -62,6 +58,5 @@ const morganCustomFormat = (tokens, req, res) => {
 module.exports = {
   asyncWrap,
   checkDataIsNotEmpty,
-  isObjectEmpty,
   morganCustomFormat,
 };
