@@ -16,7 +16,7 @@ const login = async (req, res) => {
 
   const result = await userService.login(email, password);
 
-  res.status(201).json({ message: 'loginSuccess', token: result });
+  res.status(201).json({ message: 'LOGIN_SUCCESS', token: result });
 };
 
 const getMe = async (req, res) => {
