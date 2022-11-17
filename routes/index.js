@@ -1,14 +1,11 @@
 const express = require('express');
-const router = express.Router();
-
-const userRouter = require('./user');
-// const otherRouter = require('./other');
+const middleware = require('../middlewares/tokenError');
+const userRouter = require('./userRouter');
 const companyRouter = require('./companyRouter');
 
-
-
+const router = express.Router();
 router.use(userRouter);
-// router.use(otherRouter);
+router.use(middleware.errorHandler);
 router.use('/company', companyRouter);
 
 module.exports = router;
