@@ -1,7 +1,6 @@
-const myDataSource = require('../middlewares/typeorm')
-myDataSource.initialize()
+const myDataSource = require('../middlewares/typeorm');
 
-const getCompanyPage = async (companyId) => {
+const getCompanyPage = async companyId => {
   let companyPage = await myDataSource.query(`
   SELECT
     company.id, company.company_name, ct.tags, ci.images, company.location
@@ -68,7 +67,7 @@ const getCompanyPage = async (companyId) => {
       posts_id
   ) ps ON posts.id = ps.posts_id
   WHERE company_id = '${companyId}'
-`)
+`);
   companyPosts = [...companyPosts].map(item => {
     return {
       ...item,
@@ -76,8 +75,8 @@ const getCompanyPage = async (companyId) => {
     };
   });
 
-  let result = { companyPage, companyPosts }
-  return result
-}
+  let result = { companyPage, companyPosts };
+  return result;
+};
 
-module.exports = { getCompanyPage }
+module.exports = { getCompanyPage };
