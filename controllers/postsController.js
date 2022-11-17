@@ -7,9 +7,9 @@ const getPostsPage = async (req, res) => {
     res.status(200).json(postpage);
   } catch (err) {
     console.log(err);
-    res.status(err.statusCode).json({ message: err.message })
+    res.status(err.statusCode).json({ message: err.message });
   }
 }
 
 
-module.exports = { getPostsPage }
+module.exports = { getPostsPage };
