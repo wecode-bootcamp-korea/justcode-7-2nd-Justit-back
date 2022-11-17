@@ -1,9 +1,7 @@
 const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();
-const morgan = require('morgan');
-const router = require('./routes');
 const cors = require('cors');
+const routes = require('./routes');
+const morgan = require('morgan');
 const { morganCustomFormat } = require('./utils/myutils');
 
 const createApp = () => {
@@ -15,7 +13,7 @@ const createApp = () => {
   app.use(cors(corsOptions));
   app.use(express.json());
   app.use(morgan(morganCustomFormat));
-  app.use(router);
+  app.use(routes);
 
   return app;
 };
