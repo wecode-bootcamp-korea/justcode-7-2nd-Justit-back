@@ -1,7 +1,7 @@
-const dataSource = require('./database');
+const myDataSource = require('../middlewares/typeorm');
 
 const createUser = async (email, name, hashed_password) => {
-  await dataSource.query(
+  await myDataSource.query(
     `
       INSERT INTO
         users
@@ -14,7 +14,7 @@ const createUser = async (email, name, hashed_password) => {
 
 // 이메일 중복 여부
 const existUser = async email => {
-  const [user] = await dataSource.query(
+  const [user] = await myDataSource.query(
     `
       SELECT
         id,
@@ -31,7 +31,7 @@ const existUser = async email => {
 
 // 이메일 존재 여부
 const findUserByEmail = async email => {
-  const [userInfo] = await dataSource.query(
+  const [userInfo] = await myDataSource.query(
     `
       SELECT
         id, email, users_name, password
@@ -47,7 +47,7 @@ const findUserByEmail = async email => {
 
 // getme
 const findUserById = async userId => {
-  const [userInfo] = await dataSource.query(`
+  const [userInfo] = await myDataSource.query(`
     SELECT
       id, email, users_name
     FROM

@@ -1,7 +1,7 @@
 const express = require('express');
-const cors = require('cors');
 const routes = require('./routes');
 const morgan = require('morgan');
+const cors = require('cors');
 const { morganCustomFormat } = require('./utils/myutils');
 
 const createApp = () => {
