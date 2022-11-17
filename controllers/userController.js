@@ -16,13 +16,13 @@ const login = async (req, res) => {
 
   const result = await userService.login(email, password);
 
-  res.status(201).json({ message: 'LOGIN_SUCCESS', token: result });
+  res.status(200).json({ message: 'LOGIN_SUCCESS', token: result });
 };
 
 const getMe = async (req, res) => {
   const userInfo = await userService.getMe(req.userInfo.id);
 
-  res.status(201).json({ userInfo });
+  res.status(200).json({ userInfo });
 };
 
 module.exports = { signup, login, getMe };
