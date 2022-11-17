@@ -8,4 +8,9 @@ const myDataSource = new DataSource({
   database: process.env.TYPEORM_DATABASE,
 });
 
-module.exports = myDataSource
+myDataSource.initialize().then(() => {
+  // eslint-disable-next-line
+  console.log('Data Source has been initialized!');
+});
+
+module.exports = myDataSource;
