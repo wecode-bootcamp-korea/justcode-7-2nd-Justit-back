@@ -11,6 +11,7 @@ const postResume = async (req, res) => {
 
 //정보 가져오기 (get users_name, email, birth, phoneNumber, resume_image)
 //birth 없으면 등록 (메일변경, 번호변경 누르면 계정설정으로 넘어가는거 안할건지 물어보기)
+//year 1950-2007
 //이름 수정
 
 //간단소개 post APi, delete API, 다중선택

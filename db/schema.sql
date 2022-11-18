@@ -199,19 +199,19 @@ CREATE TABLE `resume` (
   `career` varchar(100) NOT NULL,
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
-  `position_id` int NOT NULL,
-  `tech_stack_id` int NOT NULL,
+  `resume_position_id` int NOT NULL,
+  `resume_tech_stack_id` int NOT NULL,
   `resume_education_id` int NOT NULL,
   `resume_career_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`),
-  KEY `position_id` (`position_id`),
-  KEY `tech_stack_id` (`tech_stack_id`),
+  KEY `resume_position_id` (`resume_position_id`),
+  KEY `resume_tech_stack_id` (`resume_tech_stack_id`),
   KEY `resume_education_id` (`resume_education_id`),
   KEY `resume_career_id` (`resume_career_id`),
   CONSTRAINT `resume_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `resume_ibfk_2` FOREIGN KEY (`position_id`) REFERENCES `position` (`id`),
-  CONSTRAINT `resume_ibfk_3` FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`),
+  CONSTRAINT `resume_ibfk_2` FOREIGN KEY (`resume_position_id`) REFERENCES `resume_position` (`id`),
+  CONSTRAINT `resume_ibfk_3` FOREIGN KEY (`resume_tech_stack_id`) REFERENCES `resume_tech_stack` (`id`),
   CONSTRAINT `resume_ibfk_4` FOREIGN KEY (`resume_education_id`) REFERENCES `resume_education` (`id`),
   CONSTRAINT `resume_ibfk_5` FOREIGN KEY (`resume_career_id`) REFERENCES `resume_career` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -259,6 +259,42 @@ CREATE TABLE `resume_education` (
   PRIMARY KEY (`id`),
   KEY `education_id` (`education_id`),
   CONSTRAINT `resume_education_ibfk_1` FOREIGN KEY (`education_id`) REFERENCES `education` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `resume_position`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `resume_position` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `users_id` int NOT NULL,
+  `position_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_id` (`users_id`),
+  KEY `position_id` (`position_id`),
+  CONSTRAINT `resume_position_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `resume_position_ibfk_2` FOREIGN KEY (`position_id`) REFERENCES `position` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `resume_tech_stack`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `resume_tech_stack` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `users_id` int NOT NULL,
+  `tech_stack_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tech_stack_id` (`tech_stack_id`),
+  KEY `users_id` (`users_id`),
+  CONSTRAINT `resume_tech_stack_ibfk_1` FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`),
+  CONSTRAINT `resume_tech_stack_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
