@@ -1,7 +1,7 @@
 const searchDao = require('../models/searchDao');
 
-const searchPosts = async keyword => {
-  const findPosts = await searchDao.searchPosts(keyword)
+const searchPosts = async (keyword, tag) => {
+  const findPosts = await searchDao.searchPosts(keyword, tag)
   return findPosts
 }
 

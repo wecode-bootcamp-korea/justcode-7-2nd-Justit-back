@@ -1,7 +1,9 @@
 const myDataSource = require('../middlewares/typeorm');
 
-const searchPosts = async keyword => {
-  let findPosts = await myDataSource.query(`
+const searchPosts = async (keyword, tag) => {
+  let tags = implode("','", tag)
+  console.log(tags)
+  let findPost = await myDataSource.query(`
   SELECT
     posts.id, co.images, co.company_name, posts.title, ps.tech_stacks,
     co.location, posts.career_min, career_max, view, posts.position_id,
@@ -49,7 +51,7 @@ const searchPosts = async keyword => {
       JSON_ARRAYAGG(
         JSON_OBJECT(
         "id", tag.id,
-          "tag", tag.tag_name
+        "tag", tag.tag_name
         )
       ) as tags
       FROM
@@ -60,17 +62,25 @@ const searchPosts = async keyword => {
         company_id
     ) ct ON company.id = ct.company_id
   )as co ON co.id = posts.company_id
-  WHERE (content LIKE '%${keyword}%' or title LIKE '%${keyword}%');
+  WHERE (content LIKE '%${keyword}%' or title LIKE '%${keyword}%'
+  or tags LIKE '%${tagArray}%')
   `);
-  findPosts = [...findPosts].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
+  // findPost = [...findPost].map(item => {
+  //     return {
+  //       ...item,
+  //       images: JSON.parse(item.images),
+  //       tech_stacks: JSON.parse(item.tech_stacks),
+  //     };
+  //   });
+    return findPost
+  }
 
-  return findPosts
-}
+
+
+
+
+
+
+
 
 module.exports = { searchPosts }
