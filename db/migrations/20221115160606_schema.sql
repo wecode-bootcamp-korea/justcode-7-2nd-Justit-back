@@ -114,7 +114,7 @@ CREATE TABLE `scrap` (
 
 CREATE TABLE `sns_info` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `sns_id` varchar(45) DEFAULT NULL,
+  `sns_id` bigint DEFAULT NULL,
   `sns_type` varchar(45) DEFAULT NULL,
   `sns_name` varchar(45) DEFAULT NULL,
   `sns_profile` varchar(45) DEFAULT NULL,
