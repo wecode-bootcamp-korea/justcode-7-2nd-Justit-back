@@ -313,11 +313,9 @@ CREATE TABLE `scrap` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sns_info` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `sns_id` varchar(45) DEFAULT NULL,
-  `sns_type` varchar(45) DEFAULT NULL,
-  `sns_name` varchar(45) DEFAULT NULL,
-  `sns_profile` varchar(45) DEFAULT NULL,
-  `sns_connect_date` datetime DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `kakao_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `sns_info_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
