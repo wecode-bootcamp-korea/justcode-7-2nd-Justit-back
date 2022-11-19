@@ -1,5 +1,4 @@
 const myDataSource = require('../middlewares/typeorm');
-myDataSource.initialize();
 
 const getPostsPage = async postsId => {
   let postsPage = await myDataSource.query(`
