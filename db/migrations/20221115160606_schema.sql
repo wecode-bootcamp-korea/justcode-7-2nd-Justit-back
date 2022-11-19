@@ -1,5 +1,6 @@
 -- migrate:up
--- migrate:up
+SET @count=0;
+
 CREATE TABLE `apply` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `posts_id` integer NOT NULL,
@@ -70,11 +71,12 @@ CREATE TABLE `resume` (
   `career` varchar(100) NOT NULL,
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
-  `position_id` integer NOT NULL,
-  `tech_stack_id` integer NOT NULL,
+  `resume_position_id` integer NOT NULL,
+  `resume_tech_stack_id` integer NOT NULL,
   `resume_education_id` integer NOT NULL,
   `resume_career_id` integer DEFAULT NULL
 );
+
 
 CREATE TABLE `resume_career` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -154,10 +156,22 @@ CREATE TABLE `posts_tech_stack` (
   `tech_stack_id` integer DEFAULT NULL
 );
 
+CREATE TABLE `resume_position` (
+  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `users_id` integer NOT NULL,
+  `position_id` integer NOT NULL
+);
+
+CREATE TABLE `resume_tech_stack` (
+  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `users_id` integer NOT NULL,
+  `tech_stack_id` integer NOT NULL
+);
+
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
 
-  ALTER TABLE `apply` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ALTER TABLE `apply` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`resume_id`) REFERENCES `resume` (`id`);
 
@@ -169,7 +183,7 @@ CREATE TABLE `posts_tech_stack` (
   
   ALTER TABLE `company_tag` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
-  ALTER TABLE `mypage` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ALTER TABLE `mypage` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
   ALTER TABLE `mypage` ADD FOREIGN KEY (`apply_id`) REFERENCES `apply` (`id`);
 
@@ -179,11 +193,11 @@ CREATE TABLE `posts_tech_stack` (
 
   ALTER TABLE `posts` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
-  ALTER TABLE `resume` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ALTER TABLE `resume` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-  ALTER TABLE `resume` ADD FOREIGN KEY (`position_id`) REFERENCES `position` (`id`);
+  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_position_id`) REFERENCES `resume_position` (`id`);
 
-  ALTER TABLE `resume` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
+  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_tech_stack_id`) REFERENCES `resume_tech_stack` (`id`);
 
   ALTER TABLE `resume` ADD FOREIGN KEY (`resume_education_id`) REFERENCES `resume_education` (`id`);
 
@@ -195,19 +209,28 @@ CREATE TABLE `posts_tech_stack` (
 
   ALTER TABLE `scrap` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
 
-  ALTER TABLE `scrap` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ALTER TABLE `scrap` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-  ALTER TABLE `sns_info` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`);
+  ALTER TABLE `sns_info` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-  ALTER TABLE `user_log` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`);
+  ALTER TABLE `user_log` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
   ALTER TABLE `posts_tech_stack` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
 
   ALTER TABLE `posts_tech_stack` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
+  ALTER TABLE `resume_position` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+  ALTER TABLE `resume_position` ADD FOREIGN KEY (`position_id`) REFERENCES `position` (`id`);
+
+  ALTER TABLE `resume_tech_stack` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
+
+  ALTER TABLE `resume_tech_stack` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
 
 -- migrate:down
 SET foreign_key_checks = 0;
+
 DROP TABLE `apply`;
 DROP TABLE `apply_status`;
 DROP TABLE `company`;
@@ -225,5 +248,9 @@ DROP TABLE `tag`;
 DROP TABLE `tech_stack`;
 DROP TABLE `user_log`;
 DROP TABLE `users`;
+DROP TABLE `posts_tech_stack`;
+DROP TABLE `resume_position`;
+DROP TABLE `resume_tech_stack`;
+
 SET foreign_key_checks = 1;
 
