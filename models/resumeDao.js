@@ -5,6 +5,34 @@ const myDataSource = require('../middlewares/typeorm');
 //기술스택 post APi, 다중선택 (null로 들어가도록)
 //학력 (users_id, year_month, school_id, resume_education_name, department, status) post APi, delete API, 다중선택, 학력 여러개
 //경력 (users_id, year_month, resume_career_name, introduce, department, tech_stack_id, result) post APi, delete API, 다중선택
+
+//맨 처음 들어갔을때  기본 정보 get (이멜, 폰번)
+const getuserfirst = async userId => {
+  let getInfo = await myDataSource.query(
+    `SELECT email, phone_number FROM users WHERE id = '${userId}'`
+  );
+  return getInfo;
+};
+
+// 이멜, 폰번 제외 처음 입력하는 정보
+const postResume = async () => {
+  let postInfo = await myDataSource.query(
+    `INSERT INTO users (users_name, birth) VALUES ('${users_name}', ${birth})`,
+    `INSERT INTO resume (career, resume_image, introduce, resume_position_id,resume_tech_stack_id,resume_education_id,resume_career_id) VALUES
+  ('${career}', '${resume_image}', '${introduce}', ${resume_position_id}, ${resume_tech_stack_id}, ${resume_education_id}, ${resume_career_id})`
+  );
+  return postResume;
+};
+
+// 다음에 들어갔을때 기존에 저장된 정보 불러오기
+// 테이블 두군데에서 데이터 끌어와야 할때 하나의 테이블로 합쳐야 하나...뭐냐고
+// const getusernext = async userId => {
+//   let getInfo2 = await myDataSource.query(
+//     `SELECT email, phone_number, users_name, birth FROM users WHERE id = '${userId}'`
+//   );
+//   return getInfo2;
+// };
+// 정보 수정
 const updateResume = async (
   users_name,
   email,
@@ -18,20 +46,6 @@ const updateResume = async (
   resume_education_id,
   resume_career_id
 ) => {
-  //우선 아이디했을때 기본 정보 get (이멜, 폰번)
-
-  let getInfo = await myDataSource.query(
-    `SELECT email, phone_number FROM users WHERE id = '${userId}'`
-  );
-
-  // 이멜, 폰번 제외 처음 입력하는 정보
-  let postInfo = await myDataSource.query(
-    `INSERT INTO users (users_name, birth) VALUES ('${users_name}', ${birth})`,
-    `INSERT INTO resume (career, resume_image, introduce, resume_position_id,resume_tech_stack_id,resume_education_id,resume_career_id) VALUES
-  ('${career}', '${resume_image}', '${introduce}', ${resume_position_id}, ${resume_tech_stack_id}, ${resume_education_id}, ${resume_career_id})`
-  );
-
-  // 정보 수정
   let updateInfo = await myDataSource.query(
     `UPDATE users 
     SET users_name = '${users_name}', 
@@ -48,9 +62,16 @@ const updateResume = async (
     resume_career_id = ${resume_career_id}
     WHERE resume.users_id = ${userId}`
   );
-
+  return updateInfo;
   //   //resume-position
   //   SELECT id, users_id, JSON_ARRAYAGG(JSON_OBJECT("position_id" : resume_position_id)) FROM resume
   //   LEFT JOIN users ON users_id = users.id
 };
-module.exports = { updateResume };
+
+//모두 저장하기 버튼에 실행할 수 있는가
+module.exports = {
+  getuserfirst,
+  postResume,
+  //getusernext,
+  updateResume,
+};
