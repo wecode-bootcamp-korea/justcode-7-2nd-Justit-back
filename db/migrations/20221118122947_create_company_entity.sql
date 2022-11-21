@@ -285,7 +285,7 @@ VALUES
 - Prisma, TypeORM
 • MSA 기반 서비스 설계 및 개발 경험이 있으신 분
 • AGTECH(농업) 및 푸드에 대한 관심이 있으신분",
-"4", "10년", 5, "상시", 40, 1);
+04, 10, 5, "상시", 40, 1);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -303,7 +303,7 @@ VALUES
 • Selenium, Appium 등의 테스트 프레임워크 활용 경험이 있으신 분
 • RPA, 자동화 산업에 대한 경험이 있거나 관심이 많은 분
 ",
-"신입", "10년", 2, "2022-12-10", 20, 2);
+01, 10, 2, "2022-12-10", 20, 2);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -334,7 +334,7 @@ VALUES
 • 자기 분야에 대한 자발적 학습에 열정적인 분
 • 포트폴리오를 제출해 주신 분 또는 노션, 깃헙, 개발블로그 등을 운영중인 분
 • 사전질문 답변을 함께 제출해 주시는 분",
-3, "5년", 5, "상시", 36, 3);
+03, 05, 5, "상시", 36, 3);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -368,7 +368,7 @@ VALUES
 • 모놀리식 아키텍쳐보다 MSA를 선호합니다.
 • 개발 할 때는 Github, Jetbrain Tool, AWS 등을 주로 사용합니다.
 ",
-"3", "8년", 3, "2022-11-30", 50, 3);
+03, 08, 3, "2022-11-30", 50, 3);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -387,7 +387,7 @@ VALUES
 • Rest API 개발 경험
 • react.js 개발 경험
 ",
-"신입", "10년", 3, "2022-11-27", 60, 5);
+00, 10, 3, "2022-11-27", 60, 5);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -416,7 +416,7 @@ VALUES
 • 토큰 경제 및 NFT 시장에 대한 이해도가 높으신 분
 • 성공에 대한 의지와 열정을 보유하신 분
 ",
-"신입", "10년", 5, "상시", 100, 6);
+00, 10, 5, "상시", 100, 6);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -434,7 +434,7 @@ VALUES
 우대사항
 • 반응형 웹/앱 개발 경력자
 ",
-"1", "10년", 5, "상시", 10, 7);
+01, 10, 5, "상시", 10, 7);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -455,7 +455,7 @@ VALUES
 우대사항
 • Python 개발 경험
 ",
-"1", "4년", 2, "상시", 120, 8);
+01, 04, 2, "상시", 120, 8);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -474,7 +474,7 @@ VALUES
 우대사항
 • Vue.js / Flutter / Laravel 사용 경험
 ",
-"1", "10년", 5, "상시", 12, 9);
+01, 10, 5, "상시", 12, 9);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -505,7 +505,7 @@ VALUES
 • 면허 소지 및 운전 가능하신 분
 • 모빌리티 산업에 관심이 많은 분
 ",
-"1", "4년", 5, "2022-11-30", 101, 10);
+01, 04, 5, "2022-11-30", 101, 10);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -529,7 +529,7 @@ VALUES
 • 함수형 프로그래밍에 대한 높은 이해 수준
 • AGRITECH(농업) 및 푸드, 커머스에 대한 관심
 ",
-"2", "10년", 5, "상시", 30, 1);
+02, 10, 5, "상시", 30, 1);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -549,7 +549,7 @@ VALUES
 • React,React-native 경험
 • 차트를 활용한 데이터 시각화 경험자
 ",
-"1", "4년", 5, "상시", 50, 11),
+01, 04, 5, "상시", 50, 11),
 ("5", "iOS APP 개발", 
 "
 주요업무
@@ -570,7 +570,7 @@ VALUES
 • 소프트웨어 배포경험이 있는 분(현재 사용중인)
 • 전공자(컴퓨터공학과, 전자공학과)
 ",
-"신입", "3년", 2, "상시", 50, 12),
+00, 03, 2, "상시", 50, 12),
 ("4", "안드로이드 개발자 채용 ", 
 "
 주요업무
@@ -585,7 +585,7 @@ VALUES
 • UI 테스트 자동화 경험이 있으신 분
 • 취미가 개발이신 분
 ",
-"1", "5년", 5, "2022-11-30", 56, 13),
+01, 05, 5, "2022-11-30", 56, 13),
 ("1","자바 백엔드 개발자 채용 공고", 
 "
 주요업무
@@ -611,7 +611,7 @@ VALUES
 • AWS 등 클라우드 개발 환경 경험
 • 소규모 팀 운영/협업 경험
 ",
-"5", "12년", 3, "상시", 40, 14),
+05, 12, 3, "상시", 40, 14),
 ("1", "백엔드(node.js) 개발", 
 "
 주요업무
@@ -642,7 +642,7 @@ VALUES
 • Node 환경 개발 경험
 • AWS & Docker 인프라 개발 경험
 ",
-"신입", "10년", 5, "상시", 100, 15),
+00, 10, 5, "상시", 100, 15),
 ("1", "개발자 모집 (백엔드)", 
 "
 주요업무
@@ -664,7 +664,7 @@ VALUES
 • DB 쿼리 최적화 경험, 데이터베이스 운영 경험
 • TDD에 대한 이해도와 UT 기반의 견고한 코딩
 ",
-"신입", "4년", 5, "상시", 53, 16),
+00, 04, 5, "상시", 53, 16),
 ("1", "노드 개발자 채용 공고", 
 "
 주요업무
@@ -692,7 +692,7 @@ VALUES
 • aws 사용 경험
 • TeraFrom 인프라 구축 경험
 ",
-"신입", "10년", 5, "상시", 52, 17),
+00, 10, 5, "상시", 52, 17),
 ("1", "클라우드 백엔드 엔지니어 채용", 
 "
 주요업무
@@ -715,7 +715,7 @@ VALUES
 • 팀 단위 소프트웨어 개발 경험
 • 원만한 의사소통 능력
 ",
-"1", "10년", 5, "상시", 50, 18),
+01, 10, 5, "상시", 50, 18),
 ("5", "iOS 앱 개발자", 
 "
 주요업무
@@ -729,7 +729,7 @@ VALUES
 • MVP / MVVM 패턴 등의 이해
 • Git / Github, Slack 등의 협업, 소통 및 코드리뷰 경험자
 ",
-"신입", "5년", 5, "상시", 56, 19),
+00, 05, 5, "상시", 56, 19),
 ("3", "IT 개발자 채용", 
 "
 주요업무
@@ -755,7 +755,7 @@ VALUES
 • 장애인 우대
 • 보훈 대상자 우대
 ",
-"신입", "4년", 3, "2022-11-30", 40, 20);
+00, 04, 3, "2022-11-30", 40, 20);
 
 
 
