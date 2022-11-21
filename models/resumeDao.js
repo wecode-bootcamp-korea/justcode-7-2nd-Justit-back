@@ -5,52 +5,32 @@ const getuserinfo = async userId => {
   let getInfo = await myDataSource.query(
     `SELECT users_name, email, phone_number FROM users WHERE id = '${userId}'`
   );
-  return getInfo; //가입할때 이름 정보 등록되나?
+  return getInfo;
 };
 
-//
-
-const postResume = async () => {
+const postResume = async (
+  birth,
+  career,
+  resume_image,
+  introduce,
+  users_id,
+  position_id,
+  tech_stack_id,
+  education_id,
+  career_id
+) => {
   let resumeuser = await myDataSource.query(
     `INSERT ALL
     INTO users (birth) VALUES (${birth}),
     INTO resume (career, resume_image, introduce) VALUES ('${career}', '${resume_image}', '${introduce}')
     INTO resume_position (users_id, resume_position_id) VALUES (${users_id}, ${position_id})
-    INTO resume_tech_stack (users_id, resume_tech-stack_id) VALUES (${users_id}, ${position_id})
-    INTO resume_education (users_id, resume_education_id) VALUES (${users_id}, ${position_id})
-    INTO resume_career (users_id, resume_career_id) VALUES (${users_id}, ${position_id})
+    INTO resume_tech_stack (users_id, resume_tech-stack_id) VALUES (${users_id}, ${tech_stack_id})
+    INTO resume_education (users_id, resume_education_id) VALUES (${users_id}, ${education_id})
+    INTO resume_career (users_id, resume_career_id) VALUES (${users_id}, ${career_id})
     `
   );
   return resumeuser;
 };
-
-// const postposition = async () => {
-//   let resumeposition = await myDataSource.query(
-//     `INSERT INTO resume (resume_position_id) VALUES ('${resume_position_id}')`
-//   );
-//   return resumeposition;
-// };
-
-// const posttechstack = async () => {
-//   let resumetechstack = await myDataSource.query(
-//     `INSERT INTO resume (resume_teck_stack_id) VALUES ('${resume_teck_stack_id}')`
-//   );
-//   return resumetechstack;
-// };
-
-// const posteducation = async () => {
-//   let resumeeducation = await myDataSource.query(
-//     `INSERT INTO resume (resume_education_id) VALUES ('${resume_education_id}')`
-//   );
-//   return resumeeducation;
-// };
-
-// const postcareer = async () => {
-//   let resumecareer = await myDataSource.query(
-//     `INSERT INTO resume (resume_career_id) VALUES ('${resume_career_id}')`
-//   );
-//   return resumecareer;
-// };
 
 const updateResume = async (
   users_name,
@@ -77,7 +57,6 @@ const updateResume = async (
   return updateInfo;
 };
 
-//모두 저장하기 버튼에 실행할 수 있는가
 module.exports = {
   getuserinfo,
   postResume,

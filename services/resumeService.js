@@ -1,25 +1,24 @@
 const resumeDao = require('../models/resumeDao');
 const jwt = require('jsonwebtoken');
-// const jwtSecret = process.env.JWT_SECRET;
 
+// 처음 이력서 들어갔을 때 보이는 인포
+const getuserinfo = async userId => {
+  const getInfo = await resumeDao.getuserinfo(userId);
+  return getInfo;
+};
+
+// 이력서 등록
 const postResume = async (
-  users_name,
-  email,
-  career,
   birth,
-  phone_number,
+  career,
   resume_image,
   introduce,
-  resume_position_id,
-  resume_tech_stack_id,
-  resume_education_id,
-  resume_career_id,
-  userId
+  users_id,
+  position_id,
+  tech_stack_id,
+  education_id,
+  career_id
 ) => {
-  //   //로그인 만들어지면 작성
-  //   const user = jwt.verify(token, jwtSecret);
-  //   const users_id = users.id;
-
   //year 1950-2007 (에러핸들링)
   if (birth > 2007 && birth < 1950) {
     const error = new Error('BIRTH_INVALID');
@@ -27,24 +26,36 @@ const postResume = async (
     throw error;
   }
 
-  //이력서 페이지 로그인 여부에 따라 다르게 보이는 (토큰 필요)
-
-  const updateResume = await resumeDao.updateResume(
-    users_name,
-    email,
-    career,
+  const postresume = await resumeDao.postResume(
     birth,
-    phone_number,
+    career,
     resume_image,
     introduce,
-    resume_position_id,
-    resume_tech_stack_id,
-    resume_education_id,
-    resume_career_id,
-    userId
+    users_id,
+    position_id,
+    tech_stack_id,
+    education_id,
+    career_id
   );
 
-  return updateResume;
+  return postresume;
 };
 
-module.exports = { postResume };
+// 이력서 수정
+const updateResume = async (
+  users_name,
+  career,
+  birth,
+  resume_image,
+  introduce
+) => {
+  const updateresume = await resumeDao.updateResume(
+    users_name,
+    career,
+    birth,
+    resume_image,
+    introduce
+  );
+};
+
+module.exports = { getuserinfo, postResume, updateResume };
