@@ -1,77 +1,85 @@
 const myDataSource = require('../middlewares/typeorm');
 
-//간단소개 post APi, 다중선택 다 업데이트로 처리
-//개발직무 post API, 다중선택
-//기술스택 post APi, 다중선택 (null로 들어가도록)
-//학력 (users_id, year_month, school_id, resume_education_name, department, status) post APi, delete API, 다중선택, 학력 여러개
-//경력 (users_id, year_month, resume_career_name, introduce, department, tech_stack_id, result) post APi, delete API, 다중선택
-
-//맨 처음 들어갔을때  기본 정보 get (이멜, 폰번)
-const getuserfirst = async userId => {
+//맨 처음 들어갔을때 기본 정보 get (이멜, 폰번)
+const getuserinfo = async userId => {
   let getInfo = await myDataSource.query(
-    `SELECT email, phone_number FROM users WHERE id = '${userId}'`
+    `SELECT users_name, email, phone_number FROM users WHERE id = '${userId}'`
   );
-  return getInfo;
+  return getInfo; //가입할때 이름 정보 등록되나?
 };
 
-// 이멜, 폰번 제외 처음 입력하는 정보
+//
+
 const postResume = async () => {
-  let postInfo = await myDataSource.query(
-    `INSERT INTO users (users_name, birth) VALUES ('${users_name}', ${birth})`,
-    `INSERT INTO resume (career, resume_image, introduce, resume_position_id,resume_tech_stack_id,resume_education_id,resume_career_id) VALUES
-  ('${career}', '${resume_image}', '${introduce}', ${resume_position_id}, ${resume_tech_stack_id}, ${resume_education_id}, ${resume_career_id})`
+  let resumeuser = await myDataSource.query(
+    `INSERT ALL
+    INTO users (birth) VALUES (${birth}),
+    INTO resume (career, resume_image, introduce) VALUES ('${career}', '${resume_image}', '${introduce}')
+    INTO resume_position (users_id, resume_position_id) VALUES (${users_id}, ${position_id})
+    INTO resume_tech_stack (users_id, resume_tech-stack_id) VALUES (${users_id}, ${position_id})
+    INTO resume_education (users_id, resume_education_id) VALUES (${users_id}, ${position_id})
+    INTO resume_career (users_id, resume_career_id) VALUES (${users_id}, ${position_id})
+    `
   );
-  return postResume;
+  return resumeuser;
 };
 
-// 다음에 들어갔을때 기존에 저장된 정보 불러오기
-// 테이블 두군데에서 데이터 끌어와야 할때 하나의 테이블로 합쳐야 하나...뭐냐고
-// const getusernext = async userId => {
-//   let getInfo2 = await myDataSource.query(
-//     `SELECT email, phone_number, users_name, birth FROM users WHERE id = '${userId}'`
+// const postposition = async () => {
+//   let resumeposition = await myDataSource.query(
+//     `INSERT INTO resume (resume_position_id) VALUES ('${resume_position_id}')`
 //   );
-//   return getInfo2;
+//   return resumeposition;
 // };
-// 정보 수정
+
+// const posttechstack = async () => {
+//   let resumetechstack = await myDataSource.query(
+//     `INSERT INTO resume (resume_teck_stack_id) VALUES ('${resume_teck_stack_id}')`
+//   );
+//   return resumetechstack;
+// };
+
+// const posteducation = async () => {
+//   let resumeeducation = await myDataSource.query(
+//     `INSERT INTO resume (resume_education_id) VALUES ('${resume_education_id}')`
+//   );
+//   return resumeeducation;
+// };
+
+// const postcareer = async () => {
+//   let resumecareer = await myDataSource.query(
+//     `INSERT INTO resume (resume_career_id) VALUES ('${resume_career_id}')`
+//   );
+//   return resumecareer;
+// };
+
 const updateResume = async (
   users_name,
-  email,
   career,
   birth,
-  phone_number,
   resume_image,
-  introduce,
-  resume_position_id,
-  resume_tech_stack_id,
-  resume_education_id,
-  resume_career_id
+  introduce
 ) => {
   let updateInfo = await myDataSource.query(
-    `UPDATE users 
-    SET users_name = '${users_name}', 
-    email = '${email}', 
-    birth = ${birth}, 
-    phone_number = '${phone_number}' 
-    WHERE id = users.id`,
-    `UPDATE resume SET career = '${career}', 
-    resume_image = '${resume_image}', 
-    introduce = '${introduce}', 
-    resume_position_id = ${resume_position_id}, 
-    resume_tech_stack_id = ${resume_tech_stack_id}, 
-    resume_education_id = ${resume_education_id}, 
-    resume_career_id = ${resume_career_id}
-    WHERE resume.users_id = ${userId}`
+    `UPDATE users as U, resume as R, resume_position as RP, resume_tech_stack as RT, resume_education as RE, resume_career as RC
+    SET U.users_name = '${users_name}', U.birth = ${birth},
+    R.career = '${career}' R.resume_image = '${resume_image}', R.introduce = '${introduce}',
+    RP.users_id = ${users_id}, RP.resume_position_id = ${position_id},
+    RT.users_id = ${users_id}, RT.resume_tech_stack_id = ${tech_stack_id},
+    RE.users_id = ${users_id}, RE.resume_education_id = ${education_id},
+    RC.users_id = ${users_id}, RC.resume_career_id = ${career_id}
+    WHERE U.users_id = ${userId}
+    AND WHERE R.users_id = U.users_id
+    AND WHERE RP.users_id = U.users_id
+    AND WHERE RT.users_id = U.users_id
+    AND WHERE RE.users_id = U.users_id
+    AND WHERE RC.users_id = U.users_id`
   );
   return updateInfo;
-  //   //resume-position
-  //   SELECT id, users_id, JSON_ARRAYAGG(JSON_OBJECT("position_id" : resume_position_id)) FROM resume
-  //   LEFT JOIN users ON users_id = users.id
 };
 
 //모두 저장하기 버튼에 실행할 수 있는가
 module.exports = {
-  getuserfirst,
+  getuserinfo,
   postResume,
-  //getusernext,
   updateResume,
 };
