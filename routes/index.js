@@ -1,10 +1,11 @@
 const express = require('express');
 const middleware = require('../middlewares/tokenError');
 const userRouter = require('./userRouter');
-const homePageRouter = require('./homePageRouter')
+const homePageRouter = require('./homePageRouter');
 const companyRouter = require('./companyRouter');
 const postsRouter = require('./postsRouter');
 const mypageRouter = require('./mypageRouter');
+const kakaoLoginRouter = require('./kakaoLoginRouter');
 
 const router = express.Router();
 router.use(userRouter);
@@ -13,5 +14,6 @@ router.use('/', homePageRouter);
 router.use('/company', companyRouter);
 router.use('/posts', postsRouter);
 router.use('/mypage', mypageRouter);
+router.use('/auth', kakaoLoginRouter);
 
 module.exports = router;

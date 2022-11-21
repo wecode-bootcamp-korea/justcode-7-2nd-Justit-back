@@ -1,26 +1,36 @@
 const myDataSource = require('../middlewares/typeorm');
 
-const signUp = async (nickname, email, kakaoId) => {
-  const result = await myDataSource.query(
+const getUserById = async kakaoId => {
+  return await myDataSource.query(
     `
-    INSERT INTO users
-
-    (
-      name,
-      email,
-      kakao_id
-    )
-    
-    VALUES (?,?,?)
+    SELECT
+        email,
+        name,
+        kakao_id
+    FROM sns_info
+    WHERE kakao_id = ?
     
     `,
-
-    [nickname, email, kakaoId]
+    [kakaoId]
   );
+};
 
-  return result.getLastInsertedId();
+const signUp = async (email, name, kakaoId) => {
+  return await myDataSource.query(
+    `
+    INSERT INTO sns_info (
+        email,
+        name,
+        kakao_id
+    )
+    VALUES (?, ?, ?)
+    
+    `,
+    [email, name, kakaoId]
+  );
 };
 
 module.exports = {
+  getUserById,
   signUp,
 };

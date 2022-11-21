@@ -1,27 +1,30 @@
 const kakaoLoginDao = require('../models/kakaoLoginDao');
 
-const signInWithKakao = async kakaoToken => {
+const axios = require('axios');
+const jwt = require('jsonwebtoken');
+
+const signInKakao = async kakaoToken => {
   const result = await axios.get('https://kapi.kakao.com/v2/user/me', {
     headers: {
       Authorization: `Bearer ${kakaoToken}`,
     },
   });
+  const { data } = result;
+  const email = data.kakao_account.email;
+  const name = data.properties.nickname;
+  const kakaoId = data.id;
 
-  const nickname = result.data.kakao_account.profile.nickname;
-  const email = result.data.kakao_account.email;
-  const kakaoId = result.data.id;
+  if (!email || !name || !kakaoId) throw new error('KEY_ERROR', 400);
 
-  if (!nickname || !email || !kakaoId) throw new error('KEY_ERROR', 400);
-
-  const user = await kakaoLoginDao.getUserByEmail(email);
+  const user = await kakaoLoginDao.getUserById(kakaoId);
 
   if (!user) {
-    await authDao.signUp(nickname, email, kakaoId);
+    await kakaoLoginDao.signUp(email, name, kakaoId);
   }
 
-  return jwt.sign({ sub: kakaoId }, process.env.JWT_SECRET);
+  return jwt.sign({ kakao_id: user[0].kakao_id }, process.env.SECRET_KEY);
 };
 
 module.exports = {
-  signInWithKakao,
+  signInKakao,
 };
