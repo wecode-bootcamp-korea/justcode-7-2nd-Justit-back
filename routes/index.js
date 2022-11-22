@@ -5,6 +5,7 @@ const homePageRouter = require('./homePageRouter')
 const companyRouter = require('./companyRouter');
 const postsRouter = require('./postsRouter');
 const mypageRouter = require('./mypageRouter');
+const searchRouter = require('./searchRouter')
 
 const router = express.Router();
 router.use(userRouter);
@@ -13,5 +14,6 @@ router.use('/', homePageRouter);
 router.use('/company', companyRouter);
 router.use('/posts', postsRouter);
 router.use('/mypage', mypageRouter);
+router.use('/search', searchRouter)
 
 module.exports = router;
