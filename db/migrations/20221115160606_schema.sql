@@ -71,10 +71,7 @@ CREATE TABLE `resume` (
   `career` varchar(100) NOT NULL,
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
-  `resume_position_id` integer NOT NULL,
-  `resume_tech_stack_id` integer NOT NULL,
-  `resume_education_id` integer NOT NULL,
-  `resume_career_id` integer DEFAULT NULL
+  `birth` integer NOT NULL
 );
 
 
@@ -144,7 +141,6 @@ CREATE TABLE `users` (
   `email` varchar(45) UNIQUE NOT NULL,
   `users_name` varchar(45) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `birth` integer DEFAULT NULL,
   `phone_number` integer DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` integer DEFAULT NULL
@@ -194,14 +190,6 @@ CREATE TABLE `resume_tech_stack` (
   ALTER TABLE `posts` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
   ALTER TABLE `resume` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
-  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_position_id`) REFERENCES `resume_position` (`id`);
-
-  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_tech_stack_id`) REFERENCES `resume_tech_stack` (`id`);
-
-  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_education_id`) REFERENCES `resume_education` (`id`);
-
-  ALTER TABLE `resume` ADD FOREIGN KEY (`resume_career_id`) REFERENCES `resume_career` (`id`);
 
   ALTER TABLE `resume_career` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
