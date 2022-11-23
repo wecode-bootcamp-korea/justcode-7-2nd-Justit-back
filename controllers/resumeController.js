@@ -4,8 +4,9 @@ const utils = require('../utils/myutils');
 //이력서 정보 입력
 
 const getuserinfo = async (req, res) => {
-  const userInfo = await userService.getuserinfo(userId);
-  res.status(200).json({ users_name, email });
+  const userInfo = await resumeService.getuserinfo(req.userInfo.id);
+
+  res.status(200).json({ userInfo }); //userinfo 에 담겨오는 정보를 보여달라
 };
 
 //폰넘버
@@ -64,30 +65,47 @@ const postResume = async (req, res) => {
 const updateResume = async (req, res) => {
   const {
     users_name,
-    career,
+    phone_number,
     birth,
+    career,
     resume_image,
     introduce,
-    users_id,
     position_id,
     tech_stack_id,
+    education_year_month,
     education_id,
-    career_id,
+    resume_education_name,
+    education_department,
+    career_year_month,
+    resume_career_name,
+    career_introduce,
+    career_department,
+    career_tech_stack_id,
+    result,
   } = req.body;
 
-  utils.checkDataIsNotEmpty({ birth, career });
+  const userId = req.userInfo.id;
 
   const postpos = await resumeService.updateResume(
     users_name,
-    career,
+    phone_number,
     birth,
+    career,
     resume_image,
     introduce,
-    users_id,
+    userId,
     position_id,
     tech_stack_id,
+    education_year_month,
     education_id,
-    career_id
+    resume_education_name,
+    education_department,
+    career_year_month,
+    resume_career_name,
+    career_introduce,
+    career_department,
+    career_tech_stack_id,
+    result
   );
 
   res.status(200).json({ message: 'UPDATED_RESUME' });

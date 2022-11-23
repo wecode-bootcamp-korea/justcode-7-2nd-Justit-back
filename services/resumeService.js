@@ -2,8 +2,8 @@ const resumeDao = require('../models/resumeDao');
 const jwt = require('jsonwebtoken');
 
 // 처음 이력서 들어갔을 때 보이는 인포
-const getuserinfo = async () => {
-  const userInfo = await resumeDao.getuserinfo(usersId);
+const getuserinfo = async userId => {
+  const userInfo = await resumeDao.getuserinfo(userId);
   return userInfo;
 };
 
@@ -60,25 +60,51 @@ const postResume = async (
 // 이력서 수정
 const updateResume = async (
   users_name,
-  career,
+  phone_number,
   birth,
+  career,
   resume_image,
   introduce,
-  users_id,
+  userId,
   position_id,
-  tech_stack_id
-  //education_id,
+  tech_stack_id,
+  education_year_month,
+  education_id,
+  resume_education_name,
+  education_department,
+  career_year_month,
+  resume_career_name,
+  career_introduce,
+  career_department,
+  career_tech_stack_id,
+  result
 ) => {
+  if (birth > 2007 && birth < 1950) {
+    const error = new Error('BIRTH_INVALID');
+    error.statusCode = 400;
+    throw error;
+  }
+
   const updateresume = await resumeDao.updateResume(
     users_name,
-    career,
+    phone_number,
     birth,
+    career,
     resume_image,
     introduce,
-    users_id,
+    userId,
     position_id,
-    tech_stack_id
-    //education_id,
+    tech_stack_id,
+    education_year_month,
+    education_id,
+    resume_education_name,
+    education_department,
+    career_year_month,
+    resume_career_name,
+    career_introduce,
+    career_department,
+    career_tech_stack_id,
+    result
   );
 };
 
