@@ -1,5 +1,4 @@
 const postsDao = require('../models/postsDao');
-var _ = require('lodash');
 
 const getPosts = async (tag, techStack, positionId, location, career) => {
   let tags = [];
@@ -29,9 +28,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   } else {
     techStacks = techStacks[0];
   };
-  console.log(techStack)
-  console.log(techStacks)
-  console.log(typeof(tag))
+
   let positionIds = [];
   if (typeof (positionId) == 'string') {
     positionIds.push(`"${positionId}"`);
@@ -53,15 +50,6 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   const locationPosts = await postsDao.locationPosts(location);
   const careerPosts = await postsDao.careerPosts(career);
 
-  let filterPosts =
-    { tagPosts, techStackPosts, positionPosts, locationPosts, careerPosts };
-
-  filterPosts = filterPosts.tagPosts.concat(
-    filterPosts.techStackPosts, filterPosts.positionPosts,
-    filterPosts.locationPosts, filterPosts.careerPosts
-  );
-  filterPosts = _.uniqBy(filterPosts, 'postsId');
-
   let tagAndTechStackPost = [];
   if (tagPosts.length !== 0 && techStackPosts.length !== 0) {
     for (let i = 0; i < tagPosts.length; i++) {
@@ -72,7 +60,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
       }
     }
   };
-  console.log(tagAndTechStackPost.length)
+
   const strAllPosts = allPosts.map(JSON.stringify);
   const strPositionPosts = positionPosts.map(JSON.stringify);
   const strLocationPosts = locationPosts.map(JSON.stringify);
