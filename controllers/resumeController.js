@@ -37,6 +37,10 @@ const postResume = async (req, res) => {
   utils.checkDataIsNotEmpty({
     birth,
     career,
+    education_year_month,
+    education_id,
+    resume_education_name,
+    education_department,
   });
 
   await resumeService.postResume(
