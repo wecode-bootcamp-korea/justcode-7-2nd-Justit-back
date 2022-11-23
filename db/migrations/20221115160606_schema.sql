@@ -73,6 +73,17 @@ CREATE TABLE `resume` (
   `introduce` varchar(500) DEFAULT NULL,
   `birth` integer NOT NULL
 );
+CREATE TABLE `resume_position` (
+  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `users_id` integer NOT NULL,
+  `position_id` integer NOT NULL
+);
+
+CREATE TABLE `resume_tech_stack` (
+  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `users_id` integer NOT NULL,
+  `tech_stack_id` integer NOT NULL
+);
 
 
 CREATE TABLE `resume_career` (
@@ -163,6 +174,7 @@ CREATE TABLE `resume_tech_stack` (
   `users_id` integer NOT NULL,
   `tech_stack_id` integer NOT NULL
 );
+
 
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
