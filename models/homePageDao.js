@@ -7,8 +7,8 @@ const randomPosts = async () => {
     view > 60 as popular
   FROM posts
   LEFT JOIN (
-      SELECT
-    posts_id,
+    SELECT
+      posts_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", posts_tech_stack.id,
@@ -25,34 +25,36 @@ const randomPosts = async () => {
   LEFT JOIN education
   ON education.id = posts.education_id
   LEFT JOIN (
-  SELECT
-    company.id, company.company_name, ci.images, company.location
-  FROM company
-  LEFT JOIN (
     SELECT
-    company_id,
-    JSON_ARRAYAGG(
-      JSON_OBJECT(
-      "id", id,
-      "image", image
-      )
-    ) as images
-    FROM
-      image
-    GROUP BY
-      company_id
+      company.id, company.company_name, ci.images, company.location
+    FROM company
+    LEFT JOIN (
+      SELECT
+        company_id,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+        "id", id,
+        "image", image
+        )
+      ) as images
+      FROM
+        image
+      GROUP BY
+        company_id
     ) as ci ON company.id = ci.company_id
   )as co ON co.id = posts.company_id
   HAVING popular = 1
   ORDER BY RAND()
   LIMIT 5;
   `)
+
   ramdompost = [...ramdompost].map(item => {
     return {
       ...item,
       images: JSON.parse(item.images),
     };
   });
+
   return ramdompost;
 };
 
@@ -66,7 +68,7 @@ const timeLimitPosts = async () => {
   FROM posts
   LEFT JOIN (
     SELECT
-    posts_id,
+      posts_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", tech_stack.id,
@@ -84,7 +86,7 @@ const timeLimitPosts = async () => {
   ON education.id = posts.education_id
   LEFT JOIN (
     SELECT
-    company.id, company.company_name, ct.tags, ci.images, company.location
+      company.id, company.company_name, ct.tags, ci.images, company.location
     FROM company
     LEFT JOIN (
       SELECT
@@ -101,8 +103,8 @@ const timeLimitPosts = async () => {
         company_id
     ) as ci ON company.id = ci.company_id
   LEFT JOIN (
-      SELECT
-    company_id,
+    SELECT
+      company_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", tag.id,
@@ -121,6 +123,7 @@ const timeLimitPosts = async () => {
   ORDER BY posts.due_date
   LIMIT 8;
   `);
+
   timeLimitPost = [...timeLimitPost].map(item => {
     return {
       ...item,
@@ -158,22 +161,22 @@ const popularPosts = async () => {
   ON education.id = posts.education_id
   LEFT JOIN (
   SELECT
-  company.id, company.company_name, ci.images, company.location
+    company.id, company.company_name, ci.images, company.location
   FROM
     company
   LEFT JOIN (
-      SELECT
+    SELECT
       company_id,
-      JSON_ARRAYAGG(
-        JSON_OBJECT(
-        "id", id,
-        "image", image
-        )
-      ) as images
-      FROM
-        image
-      GROUP BY
-        company_id
+    JSON_ARRAYAGG(
+      JSON_OBJECT(
+      "id", id,
+      "image", image
+      )
+    ) as images
+    FROM
+      image
+    GROUP BY
+      company_id
     ) as ci ON company.id = ci.company_id
   )as co ON co.id = posts.company_id
   ORDER BY view DESC
@@ -198,29 +201,29 @@ const responseFastCompany = async () => {
   FROM posts
   LEFT JOIN (
       SELECT
-    posts_id,
-    JSON_ARRAYAGG(
-      JSON_OBJECT(
-      "id", tech_stack.id,
-      "tech_stack", tech_stack.tech_stack_name
-      )
-    ) as tech_stacks
-    FROM
+        posts_id,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+        "id", tech_stack.id,
+        "tech_stack", tech_stack.tech_stack_name
+        )
+      ) as tech_stacks
+      FROM
         posts_tech_stack
-        JOIN
+      JOIN
         tech_stack ON posts_tech_stack.tech_stack_id = tech_stack.id
-    GROUP BY
+      GROUP BY
         posts_id
   ) ps ON posts.id = ps.posts_id
   LEFT JOIN education
-    ON education.id = posts.education_id
+  ON education.id = posts.education_id
   LEFT JOIN (
   SELECT
     company.id, company.company_name, ct.tags, ci.images, company.location
   FROM company
   LEFT JOIN (
     SELECT
-    company_id,
+      company_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", id,
@@ -234,7 +237,7 @@ const responseFastCompany = async () => {
   ) as ci ON company.id = ci.company_id
   LEFT JOIN (
     SELECT
-    company_id,
+      company_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", tag.id,
@@ -249,8 +252,9 @@ const responseFastCompany = async () => {
       company_id
     ) ct ON company.id = ct.company_id
   )as co ON co.id = posts.company_id
-  WHERE tags LIKE '%지원%';
+  WHERE tags LIKE '%지원 응답%';
   `);
+
   asapCompany = [...asapCompany].map(item => {
     return {
       ...item,
@@ -287,7 +291,7 @@ const newPosts = async () => {
   ON education.id = posts.education_id
   LEFT JOIN (
     SELECT
-    company.id, company.company_name, ci.images, company.location
+      company.id, company.company_name, ci.images, company.location
     FROM company
     LEFT JOIN (
       SELECT
@@ -307,6 +311,7 @@ const newPosts = async () => {
   ORDER BY created_at DESC
   LIMIT 8;
 `);
+
   posts = [...posts].map(item => {
     return {
       ...item,
@@ -319,6 +324,9 @@ const newPosts = async () => {
 };
 
 module.exports = {
-  randomPosts, timeLimitPosts, popularPosts,
-  responseFastCompany, newPosts
+  randomPosts,
+  timeLimitPosts,
+  popularPosts,
+  responseFastCompany,
+  newPosts
 };
