@@ -1,4 +1,3 @@
-const { useContainer } = require('typeorm');
 const homePageDao = require('../models/homePageDao');
 
 const getHomePage = async () => {
