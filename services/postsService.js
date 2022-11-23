@@ -29,7 +29,9 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   } else {
     techStacks = techStacks[0];
   };
-
+  console.log(techStack)
+  console.log(techStacks)
+  console.log(typeof(tag))
   let positionIds = [];
   if (typeof (positionId) == 'string') {
     positionIds.push(`"${positionId}"`);
@@ -70,7 +72,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
       }
     }
   };
-
+  console.log(tagAndTechStackPost.length)
   const strAllPosts = allPosts.map(JSON.stringify);
   const strPositionPosts = positionPosts.map(JSON.stringify);
   const strLocationPosts = locationPosts.map(JSON.stringify);
@@ -101,7 +103,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length !== 0) {
+  if (techStackPosts.length === 0 && tagPosts.length !== 0 && techStack === '') {
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < tagPosts.length; j++) {
         if (anotherPost[i].postsId === tagPosts[j].postsId) {
@@ -111,7 +113,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length !== 0 && tagPosts.length === 0){
+  if (techStackPosts.length !== 0 && tagPosts.length === 0 && tag === ''){
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < techStackPosts.length; j++) {
         if (anotherPost[i].postsId === techStackPosts[j].postsId) {
@@ -121,16 +123,12 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length === 0) {
+  if (techStackPosts.length === 0 && tagPosts.length === 0 && techStack === '' && tag === '') {
     result = anotherPost;
   };
 
   if (result.length === 0) {
     throw new Error('게시글이 없습니다.');
-  };
-
-  if (filterPosts.length === 0) {
-    result = allPosts
   };
 
   return { result };
