@@ -20,7 +20,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   if (typeof (techStack) == 'string') {
     techStacks.push(`"${techStack}"`);
   } else if (techStack !== undefined && techStack.length > 1) {
-    for (let i = 0; i < tag.length; i++) {
+    for (let i = 0; i < techStack.length; i++) {
       techStacks.push(`"${techStack[i]}"`);
     };
   };
@@ -32,10 +32,10 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
 
   let positionIds = [];
   if (typeof (positionId) == 'string') {
-    positionIds.push(`"${techStack}"`);
+    positionIds.push(`"${positionId}"`);
   } else if (positionId !== undefined && positionId.length > 1) {
-    for (let i = 0; i < tag.length; i++) {
-      positionIds.push(`"${techStack[i]}"`);
+    for (let i = 0; i < positionId.length; i++) {
+      positionIds.push(`"${positionId[i]}"`);
     };
   };
   if (positionIds.length > 1) {
