@@ -43,7 +43,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   } else {
     positionIds = positionIds[0];
   };
-  const responseFastCompany = await postsDao.responseFastCompany();
+
   const allPosts = await postsDao.allPosts();
   const tagPosts = await postsDao.tagPosts(tags);
   const techStackPosts = await postsDao.techStackPosts(techStacks);
@@ -130,7 +130,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   };
 
   if (filterPosts.length === 0) {
-    result = { responseFastCompany, allPosts }
+    result = allPosts
   };
 
   return { result };
