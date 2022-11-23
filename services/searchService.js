@@ -1,5 +1,4 @@
 const searchDao = require('../models/searchDao');
-var _ = require('lodash');
 
 const searchPosts = async (keyword, tag, techStack, positionId, location, career) => {
   const spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
@@ -56,15 +55,6 @@ const searchPosts = async (keyword, tag, techStack, positionId, location, career
   const locationPosts = await searchDao.locationPosts(location);
   const careerPosts = await searchDao.careerPosts(career);
 
-  let filterPosts =
-    { tagPosts, techStackPosts, positionPosts, locationPosts, careerPosts };
-
-  filterPosts = filterPosts.tagPosts.concat(
-    filterPosts.techStackPosts, filterPosts.positionPosts,
-    filterPosts.locationPosts, filterPosts.careerPosts
-  );
-  filterPosts = _.uniqBy(filterPosts, 'postsId');
-
   let tagAndTechStackPost = [];
   if (tagPosts.length !== 0 && techStackPosts.length !== 0) {
     for (let i = 0; i < tagPosts.length; i++) {
@@ -106,7 +96,7 @@ const searchPosts = async (keyword, tag, techStack, positionId, location, career
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length !== 0) {
+  if (techStackPosts.length === 0 && tagPosts.length !== 0 && techStack === '') {
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < tagPosts.length; j++) {
         if (anotherPost[i].postsId === tagPosts[j].postsId) {
@@ -116,7 +106,7 @@ const searchPosts = async (keyword, tag, techStack, positionId, location, career
     }
   };
 
-  if (techStackPosts.length !== 0 && tagPosts.length === 0){
+  if (techStackPosts.length !== 0 && tagPosts.length === 0 && tag === ''){
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < techStackPosts.length; j++) {
         if (anotherPost[i].postsId === techStackPosts[j].postsId) {
@@ -126,16 +116,12 @@ const searchPosts = async (keyword, tag, techStack, positionId, location, career
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length === 0) {
+  if (techStackPosts.length === 0 && tagPosts.length === 0 && techStack === '' && tag === '') {
     result = anotherPost;
   };
 
   if (result.length === 0) {
     throw new Error('게시글이 없습니다.');
-  };
-
-  if (filterPosts.length === 0) {
-    result = searchPosts
   };
 
   return { result };
