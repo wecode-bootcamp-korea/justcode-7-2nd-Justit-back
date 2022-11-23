@@ -7,7 +7,13 @@ const getuserinfo = async userId => {
   return userInfo;
 };
 
-// 이력서 등록
+// 이력서 전체 정보 get
+const getresumeinfo = async userId => {
+  const resumeInfo = await resumeDao.getresumeinfo(userId);
+  return resumeInfo;
+};
+
+// 나머지 정보 등록
 const postResume = async (
   birth,
   career,
@@ -108,4 +114,4 @@ const updateResume = async (
   );
 };
 
-module.exports = { getuserinfo, postResume, updateResume };
+module.exports = { getuserinfo, getresumeinfo, postResume, updateResume };

@@ -10,6 +10,11 @@ router.get(
   asyncWrap(mw.authMiddleware),
   asyncWrap(resumeController.getuserinfo)
 );
+router.get(
+  '/getall',
+  asyncWrap(mw.authMiddleware),
+  asyncWrap(resumeController.getresumeinfo)
+);
 router.post(
   '/post',
   asyncWrap(mw.authMiddleware),
