@@ -1,5 +1,4 @@
 const postsDao = require('../models/postsDao');
-var _ = require('lodash');
 
 const getPosts = async (tag, techStack, positionId, location, career) => {
   let tags = [];
@@ -43,22 +42,13 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   } else {
     positionIds = positionIds[0];
   };
-  const responseFastCompany = await postsDao.responseFastCompany();
+
   const allPosts = await postsDao.allPosts();
   const tagPosts = await postsDao.tagPosts(tags);
   const techStackPosts = await postsDao.techStackPosts(techStacks);
   const positionPosts = await postsDao.positionPosts(positionId);
   const locationPosts = await postsDao.locationPosts(location);
   const careerPosts = await postsDao.careerPosts(career);
-
-  let filterPosts =
-    { tagPosts, techStackPosts, positionPosts, locationPosts, careerPosts };
-
-  filterPosts = filterPosts.tagPosts.concat(
-    filterPosts.techStackPosts, filterPosts.positionPosts,
-    filterPosts.locationPosts, filterPosts.careerPosts
-  );
-  filterPosts = _.uniqBy(filterPosts, 'postsId');
 
   let tagAndTechStackPost = [];
   if (tagPosts.length !== 0 && techStackPosts.length !== 0) {
@@ -101,7 +91,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length !== 0) {
+  if (techStackPosts.length === 0 && tagPosts.length !== 0 && techStack === '') {
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < tagPosts.length; j++) {
         if (anotherPost[i].postsId === tagPosts[j].postsId) {
@@ -111,7 +101,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length !== 0 && tagPosts.length === 0){
+  if (techStackPosts.length !== 0 && tagPosts.length === 0 && tag === ''){
     for (let i = 0; i < anotherPost.length; i++) {
       for (let j = 0; j < techStackPosts.length; j++) {
         if (anotherPost[i].postsId === techStackPosts[j].postsId) {
@@ -121,16 +111,12 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
     }
   };
 
-  if (techStackPosts.length === 0 && tagPosts.length === 0) {
+  if (techStackPosts.length === 0 && tagPosts.length === 0 && techStack === '' && tag === '') {
     result = anotherPost;
   };
 
   if (result.length === 0) {
     throw new Error('게시글이 없습니다.');
-  };
-
-  if (filterPosts.length === 0) {
-    result = { responseFastCompany, allPosts }
   };
 
   return { result };

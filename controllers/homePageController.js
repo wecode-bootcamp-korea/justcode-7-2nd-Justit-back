@@ -6,7 +6,7 @@ const getHomePage = async (req, res) => {
       res.status(200).json(result);
   } catch(err) {
     console.log(err);
-    res.status(err.statusCode).json({ message : err.message });
+    res.status(400).json({ message : err.message });
   }
 
 }

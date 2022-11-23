@@ -2,11 +2,11 @@ const searchService = require('../services/searchService');
 
 const searchPosts = async (req, res) => {
   try {
-    const keyword = req.query.keyword || null;
+    const keyword = decodeURIComponent(req.query.keyword) || null;
     const tag = req.query.tag || '';
     const techStack = req.query.techStack || '';
     const positionId = req.query.position || "''";
-    const location = req.query.location || null;
+    const location = decodeURIComponent(req.query.location) || null;
     const career = req.query.career || null;
 
     const REQUIRE_KEYS = [ keyword ];
