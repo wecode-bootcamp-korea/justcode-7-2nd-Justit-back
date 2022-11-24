@@ -5,10 +5,17 @@ const { asyncWrap } = require('../utils/myutils');
 
 const resumeController = require('../controllers/resumeController');
 
+
+// router.get(
+//   '/get',
+//   asyncWrap(mw.authMiddleware),
+//   asyncWrap(resumeController.getuserinfo)
+// );
 router.get(
-  '/get',
+  '/getall',
   asyncWrap(mw.authMiddleware),
-  asyncWrap(resumeController.getuserinfo)
+  asyncWrap(resumeController.getresumeinfo)
+
 );
 router.post(
   '/post',

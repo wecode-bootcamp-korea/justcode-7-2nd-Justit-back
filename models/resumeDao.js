@@ -1,14 +1,37 @@
 const myDataSource = require('../middlewares/typeorm');
 
 //맨 처음 들어갔을때 기본 정보 get (이멜, 폰번)
-const getuserinfo = async userId => {
-  let [getInfo] = await myDataSource.query(
+
+// const getuserinfo = async userId => {
+//   let [getInfo] = await myDataSource.query(
+//     `SELECT
+//     users_name, email
+//     FROM users
+//     WHERE id = '${userId}'`
+//   );
+//   return getInfo;
+// };
+
+const getresumeinfo = async userId => {
+  let [getresume] = await myDataSource.query(
     `SELECT 
-    users_name, email
-    FROM users 
-    WHERE id = '${userId}'`
+        U.users_name, U.email, U.phone_number, 
+        R.resume_image, R.introduce, R.birth, R.career, 
+        P.position_id,
+        T.tech_stack_id,
+        E.education_year_month, E.education_id, E.resume_education_name, E.education_department,
+        C.career_year_month, C.resume_career_name, C.career_introduce, C.career_department, C.career_tech_stack_id
+      FROM users U
+      JOIN resume R ON U.id = R.users_id
+      JOIN resume_position P ON U.id = P.users_id
+      JOIN resume_tech_stack T ON U.id = T.users_id
+      JOIN resume_education E ON U.id = E.users_id
+      JOIN resume_career C ON U.id = C.users_id
+      WHERE U.id = '${userId}'`
   );
-  return getInfo;
+  return getresume;
+
+
 };
 
 const postResume = async (
@@ -111,7 +134,10 @@ const updateResume = async (
 
 // get 함수 (join)
 module.exports = {
-  getuserinfo,
+
+  //getuserinfo,
+  getresumeinfo,
+
   postResume,
   updateResume,
 };
