@@ -8,7 +8,8 @@ const homePageRouter = require('./homePageRouter');
 const companyRouter = require('./companyRouter');
 const postsRouter = require('./postsRouter');
 const mypageRouter = require('./mypageRouter');
-const searchRouter = require('./searchRouter')
+const searchRouter = require('./searchRouter');
+const applyRouter = require('./applyRouter');
 
 router.use(userRouter);
 router.use(middleware.errorHandler);
@@ -17,6 +18,6 @@ router.use('/', homePageRouter);
 router.use('/company', companyRouter);
 router.use('/posts', postsRouter);
 router.use('/mypage', mypageRouter);
-router.use('/search', searchRouter)
-
+router.use('/search', searchRouter);
+router.use('/apply', applyRouter);
 module.exports = router;

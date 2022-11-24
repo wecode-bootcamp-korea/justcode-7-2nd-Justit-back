@@ -151,8 +151,8 @@ CREATE TABLE `posts` (
   `position_id` int NOT NULL,
   `title` varchar(200) NOT NULL,
   `content` varchar(1000) NOT NULL,
-  `career_min` varchar(50) NOT NULL,
-  `career_max` varchar(50) DEFAULT NULL,
+  `career_min` int NOT NULL,
+  `career_max` int DEFAULT NULL,
   `education_id` int DEFAULT NULL,
   `due_date` varchar(20) DEFAULT NULL,
   `view` int DEFAULT NULL,
@@ -199,21 +199,10 @@ CREATE TABLE `resume` (
   `career` varchar(100) NOT NULL,
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
-  `resume_position_id` int NOT NULL,
-  `resume_tech_stack_id` int NOT NULL,
-  `resume_education_id` int NOT NULL,
-  `resume_career_id` int DEFAULT NULL,
+  `birth` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`),
-  KEY `resume_position_id` (`resume_position_id`),
-  KEY `resume_tech_stack_id` (`resume_tech_stack_id`),
-  KEY `resume_education_id` (`resume_education_id`),
-  KEY `resume_career_id` (`resume_career_id`),
-  CONSTRAINT `resume_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `resume_ibfk_2` FOREIGN KEY (`resume_position_id`) REFERENCES `resume_position` (`id`),
-  CONSTRAINT `resume_ibfk_3` FOREIGN KEY (`resume_tech_stack_id`) REFERENCES `resume_tech_stack` (`id`),
-  CONSTRAINT `resume_ibfk_4` FOREIGN KEY (`resume_education_id`) REFERENCES `resume_education` (`id`),
-  CONSTRAINT `resume_ibfk_5` FOREIGN KEY (`resume_career_id`) REFERENCES `resume_career` (`id`)
+  CONSTRAINT `resume_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -411,7 +400,6 @@ CREATE TABLE `users` (
   `email` varchar(45) NOT NULL,
   `users_name` varchar(45) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `birth` int DEFAULT NULL,
   `phone_number` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
