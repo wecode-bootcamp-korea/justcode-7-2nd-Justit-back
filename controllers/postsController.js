@@ -18,8 +18,8 @@ const getPosts = async (req, res) => {
 const getPostsPage = async (req, res) => {
   try {
     const postsId = req.params.id;
-    const postpage = await postsService.getPostsPage(postsId);
-    res.status(200).json(postpage);
+    const result = await postsService.getPostsPage(postsId);
+    res.status(200).json(result);
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });

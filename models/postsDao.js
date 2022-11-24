@@ -366,18 +366,19 @@ const careerPosts = async career => {
 const getPostsPage = async postsId => {
   let postsPage = await myDataSource.query(`
   SELECT
-    posts.id as postsId, posts.title, ps.tech_stacks, posts.content,
-    posts.career_min, career_max, education_name, posts.due_date
+    posts.id, posts.title, co.company_name, tags, ps.tech_stacks, content,
+    career_min, career_max, education.education_name, due_date, co.location,
+    co.images, view, posts.position_id, posts.company_id
   FROM posts
   LEFT JOIN (
     SELECT
       posts_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
-        "id", posts_tech_stack.id,
-        "tech_stack", tech_stack.tech_stack_name
+      "id", tech_stack.id,
+      "tech_stack", tech_stack.tech_stack_name
       )
-    ) as tech_stacks
+      ) as tech_stacks
     FROM
       posts_tech_stack
     JOIN
@@ -386,37 +387,14 @@ const getPostsPage = async postsId => {
       posts_id
   ) ps ON posts.id = ps.posts_id
   LEFT JOIN education
-    ON education.id = posts.education_id
-    WHERE posts.id = '${postsId}'
-  `);
-  postsPage = [...postsPage].map(item => {
-    return {
-      ...item,
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
-  let postPageInfo = { postsPage };
-
-  return postPageInfo;
-}
-
-const findCompanyId = async postsId => {
-  const [companyId] = await myDataSource.query(`
-  SELECT company_id FROM justit.posts WHERE id = '${postsId}'
-  `);
-
-  return companyId;
-}
-
-const postsInCompany = async companyId => {
-  let companyInfo = await myDataSource.query(`
-  SELECT
-    company.id, company.company_name, ct.tags, ci.images, company.location
-  FROM company
+  ON education.id = posts.education_id
   LEFT JOIN (
     SELECT
-    company_id,
+      company.id, company.company_name, ct.tags, ci.images, company.location
+    FROM company
+    LEFT JOIN (
+    SELECT
+      company_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
       "id", id,
@@ -427,14 +405,14 @@ const postsInCompany = async companyId => {
       image
     GROUP BY
       company_id
-  ) as ci ON company.id = ci.company_id
-  LEFT JOIN (
+    ) as ci ON company.id = ci.company_id
+    LEFT JOIN (
     SELECT
-    company_id,
+      company_id,
     JSON_ARRAYAGG(
       JSON_OBJECT(
-      "id", company_tag.id,
-        "tag", tag.tag_name
+      "id", tag.id,
+      "tag", tag.tag_name
       )
     ) as tags
     FROM
@@ -443,20 +421,22 @@ const postsInCompany = async companyId => {
       tag ON company_tag.tag_id = tag.id
     GROUP BY
       company_id
-  ) ct ON company.id = ct.company_id
-  WHERE id = '${companyId}'
-  GROUP BY company.id
+    ) ct ON company.id = ct.company_id
+  )as co ON co.id = posts.company_id
+  WHERE posts.id = '${postsId}'
 `);
-
-  companyInfo = [...companyInfo].map(item => {
+  postsPage = [...postsPage].map(item => {
     return {
       ...item,
       tags: JSON.parse(item.tags),
-      images: JSON.parse(item.images),
+      tech_stacks: JSON.parse(item.tech_stacks),
+      images: JSON.parse(item.images)
     };
   });
 
-  return companyInfo;
+  let postPageInfo = { postsPage };
+
+  return postPageInfo;
 }
 
 const findPostionId = async postsId => {
@@ -543,8 +523,6 @@ module.exports = {
   locationPosts,
   careerPosts,
   getPostsPage,
-  findCompanyId,
-  postsInCompany,
   findPostionId,
   samePositionPosts,
   addView
