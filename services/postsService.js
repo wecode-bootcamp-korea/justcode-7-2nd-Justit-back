@@ -131,7 +131,7 @@ const getPostsPage = async postsId => {
   const positionId = findPostionId.position_id;
   const samePositionPosts = await postsDao.samePositionPosts(positionId);
   await postsDao.addView(postsId);
-  const result = { postsPage, postsInCompany, samePositionPosts };
+  const result = { postsPage, samePositionPosts };
   return result;
 }
 
