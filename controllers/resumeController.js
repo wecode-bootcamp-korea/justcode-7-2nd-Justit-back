@@ -1,6 +1,7 @@
 const resumeService = require('../services/resumeService');
 const utils = require('../utils/myutils');
 
+
 //이력서 처음 들어갈때 정보 get (users_name, email)
 
 // const getuserinfo = async (req, res) => {
@@ -15,6 +16,10 @@ const getresumeinfo = async (req, res) => {
 
   res.status(200).json({ resumeInfo });
 };
+
+
+
+
 
 // 나머지 정보 등록
 const postResume = async (req, res) => {
@@ -42,10 +47,13 @@ const postResume = async (req, res) => {
   utils.checkDataIsNotEmpty({
     birth,
     career,
+
     education_year_month,
     education_id,
     resume_education_name,
     education_department,
+
+
   });
 
   await resumeService.postResume(
@@ -121,8 +129,10 @@ const updateResume = async (req, res) => {
 };
 
 module.exports = {
+
   //getuserinfo,
   getresumeinfo,
+
   postResume,
   updateResume,
 };

@@ -2,7 +2,7 @@ const myDataSource = require('../middlewares/typeorm');
 
 // 스크랩 추가
 const addPostScrap = async (posts_id, userId) => {
-  const addPost = await myDataSource.query(
+  await myDataSource.query(
     `
     INSERT INTO
       scrap
@@ -12,8 +12,6 @@ const addPostScrap = async (posts_id, userId) => {
 
     `
   );
-
-  return addPost;
 };
 
 // 스크랩 보기
@@ -22,6 +20,7 @@ const findPostByUserId = async userId => {
     .query(
       `
       SELECT
+        posts.id AS post_id,
         posts.title,
         company.company_name,
         image.images,
@@ -59,7 +58,7 @@ const findPostByUserId = async userId => {
 
 // 스크랩 삭제
 const deletePost = async (posts_id, userId) => {
-  const deletePost = await myDataSource.query(
+  await myDataSource.query(
     `
 
     DELETE FROM
@@ -71,13 +70,11 @@ const deletePost = async (posts_id, userId) => {
   
     `
   );
-
-  return deletePost;
 };
 
 // 메일 변경
 const updateUserEmail = async (email, userId) => {
-  const updateEmail = await myDataSource.query(
+  await myDataSource.query(
     `
 
     UPDATE
@@ -90,13 +87,11 @@ const updateUserEmail = async (email, userId) => {
 
     `
   );
-
-  return updateEmail;
 };
 
 // 계정 탈퇴
 const deleteUserById = async (email, userId) => {
-  const deleteUser = await myDataSource.query(
+  await myDataSource.query(
     `
 
     DELETE FROM
@@ -108,8 +103,6 @@ const deleteUserById = async (email, userId) => {
 
     `
   );
-
-  return deleteUser;
 };
 
 module.exports = {

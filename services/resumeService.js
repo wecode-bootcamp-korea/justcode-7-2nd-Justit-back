@@ -2,6 +2,7 @@ const resumeDao = require('../models/resumeDao');
 const jwt = require('jsonwebtoken');
 
 // 처음 이력서 들어갔을 때 보이는 인포
+
 // const getuserinfo = async userId => {
 //   const userInfo = await resumeDao.getuserinfo(userId);
 //   return userInfo;
@@ -14,6 +15,7 @@ const getresumeinfo = async userId => {
 };
 
 // 나머지 정보 등록
+
 const postResume = async (
   birth,
   career,
@@ -120,3 +122,4 @@ module.exports = {
   postResume,
   updateResume,
 };
+

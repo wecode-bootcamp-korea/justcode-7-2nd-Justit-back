@@ -1,6 +1,7 @@
 const myDataSource = require('../middlewares/typeorm');
 
 //맨 처음 들어갔을때 기본 정보 get (이멜, 폰번)
+
 // const getuserinfo = async userId => {
 //   let [getInfo] = await myDataSource.query(
 //     `SELECT
@@ -29,6 +30,8 @@ const getresumeinfo = async userId => {
       WHERE U.id = '${userId}'`
   );
   return getresume;
+
+
 };
 
 const postResume = async (
@@ -131,8 +134,10 @@ const updateResume = async (
 
 // get 함수 (join)
 module.exports = {
+
   //getuserinfo,
   getresumeinfo,
+
   postResume,
   updateResume,
 };
