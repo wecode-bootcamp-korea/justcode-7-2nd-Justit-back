@@ -22,16 +22,14 @@ const getresumeinfo = async userId => {
         E.education_year_month, E.education_id, E.resume_education_name, E.education_department,
         C.career_year_month, C.resume_career_name, C.career_introduce, C.career_department, C.career_tech_stack_id
       FROM users U
-      JOIN resume R ON U.id = R.users_id
-      JOIN resume_position P ON U.id = P.users_id
-      JOIN resume_tech_stack T ON U.id = T.users_id
-      JOIN resume_education E ON U.id = E.users_id
-      JOIN resume_career C ON U.id = C.users_id
+      LEFT JOIN resume R ON U.id = R.users_id
+      LEFT JOIN resume_position P ON U.id = P.users_id
+      LEFT JOIN resume_tech_stack T ON U.id = T.users_id
+      LEFT JOIN resume_education E ON U.id = E.users_id
+      LEFT JOIN resume_career C ON U.id = C.users_id
       WHERE U.id = '${userId}'`
   );
   return getresume;
-
-
 };
 
 const postResume = async (
@@ -134,7 +132,6 @@ const updateResume = async (
 
 // get 함수 (join)
 module.exports = {
-
   //getuserinfo,
   getresumeinfo,
 
