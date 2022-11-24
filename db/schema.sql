@@ -19,17 +19,12 @@ CREATE TABLE `apply` (
   `id` int NOT NULL AUTO_INCREMENT,
   `posts_id` int NOT NULL,
   `users_id` int NOT NULL,
-  `resume_id` int NOT NULL,
-  `apply_status_id` int NOT NULL,
+  `apply_status` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `posts_id` (`posts_id`),
   KEY `users_id` (`users_id`),
-  KEY `resume_id` (`resume_id`),
-  KEY `apply_status_id` (`apply_status_id`),
   CONSTRAINT `apply_ibfk_1` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
-  CONSTRAINT `apply_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `apply_ibfk_3` FOREIGN KEY (`resume_id`) REFERENCES `resume` (`id`),
-  CONSTRAINT `apply_ibfk_4` FOREIGN KEY (`apply_status_id`) REFERENCES `apply_status` (`id`)
+  CONSTRAINT `apply_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -200,6 +195,8 @@ CREATE TABLE `resume` (
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
   `birth` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`),
   CONSTRAINT `resume_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
@@ -215,17 +212,17 @@ CREATE TABLE `resume` (
 CREATE TABLE `resume_career` (
   `id` int NOT NULL AUTO_INCREMENT,
   `users_id` int NOT NULL,
-  `year_month` date NOT NULL,
+  `career_year_month` varchar(50) NOT NULL,
   `resume_career_name` varchar(45) NOT NULL,
-  `introduce` varchar(200) DEFAULT NULL,
-  `department` varchar(45) DEFAULT NULL,
-  `tech_stack_id` int DEFAULT NULL,
+  `career_introduce` varchar(200) DEFAULT NULL,
+  `career_department` varchar(45) DEFAULT NULL,
+  `career_tech_stack_id` int DEFAULT NULL,
   `result` varchar(200) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `tech_stack_id` (`tech_stack_id`),
-  CONSTRAINT `resume_career_ibfk_1` FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`)
+  KEY `career_tech_stack_id` (`career_tech_stack_id`),
+  CONSTRAINT `resume_career_ibfk_1` FOREIGN KEY (`career_tech_stack_id`) REFERENCES `tech_stack` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -238,11 +235,10 @@ CREATE TABLE `resume_career` (
 CREATE TABLE `resume_education` (
   `id` int NOT NULL AUTO_INCREMENT,
   `users_id` int NOT NULL,
-  `year_month` date NOT NULL,
+  `education_year_month` date NOT NULL,
   `education_id` int NOT NULL,
   `resume_education_name` varchar(45) NOT NULL,
-  `department` varchar(45) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `education_department` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
