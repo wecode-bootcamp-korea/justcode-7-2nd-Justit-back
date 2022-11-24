@@ -3,11 +3,11 @@ const utils = require('../utils/myutils');
 
 //이력서 처음 들어갈때 정보 get (users_name, email)
 
-const getuserinfo = async (req, res) => {
-  const userInfo = await resumeService.getuserinfo(req.userInfo.id);
+// const getuserinfo = async (req, res) => {
+//   const userInfo = await resumeService.getuserinfo(req.userInfo.id);
 
-  res.status(200).json({ userInfo }); //userinfo 에 담겨오는 정보를 보여달라
-};
+//   res.status(200).json({ userInfo }); //userinfo 에 담겨오는 정보를 보여달라
+// };
 
 //이력서 전체 정보 get
 const getresumeinfo = async (req, res) => {
@@ -121,7 +121,7 @@ const updateResume = async (req, res) => {
 };
 
 module.exports = {
-  getuserinfo,
+  //getuserinfo,
   getresumeinfo,
   postResume,
   updateResume,

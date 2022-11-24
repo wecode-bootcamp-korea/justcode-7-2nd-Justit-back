@@ -2,10 +2,10 @@ const resumeDao = require('../models/resumeDao');
 const jwt = require('jsonwebtoken');
 
 // 처음 이력서 들어갔을 때 보이는 인포
-const getuserinfo = async userId => {
-  const userInfo = await resumeDao.getuserinfo(userId);
-  return userInfo;
-};
+// const getuserinfo = async userId => {
+//   const userInfo = await resumeDao.getuserinfo(userId);
+//   return userInfo;
+// };
 
 // 이력서 전체 정보 get
 const getresumeinfo = async userId => {
@@ -114,4 +114,9 @@ const updateResume = async (
   );
 };
 
-module.exports = { getuserinfo, getresumeinfo, postResume, updateResume };
+module.exports = {
+  //getuserinfo,
+  getresumeinfo,
+  postResume,
+  updateResume,
+};
