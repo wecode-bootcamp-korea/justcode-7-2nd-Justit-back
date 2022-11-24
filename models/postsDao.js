@@ -439,64 +439,6 @@ const getPostsPage = async postsId => {
   return postPageInfo;
 }
 
-const findCompanyId = async postsId => {
-  const [companyId] = await myDataSource.query(`
-  SELECT company_id FROM justit.posts WHERE id = '${postsId}'
-  `);
-
-  return companyId;
-}
-
-const postsInCompany = async companyId => {
-  let companyInfo = await myDataSource.query(`
-  SELECT
-    company.id, company.company_name, ct.tags, ci.images, company.location
-  FROM company
-  LEFT JOIN (
-    SELECT
-    company_id,
-    JSON_ARRAYAGG(
-      JSON_OBJECT(
-      "id", id,
-      "image", image
-      )
-    ) as images
-    FROM
-      image
-    GROUP BY
-      company_id
-  ) as ci ON company.id = ci.company_id
-  LEFT JOIN (
-    SELECT
-    company_id,
-    JSON_ARRAYAGG(
-      JSON_OBJECT(
-      "id", company_tag.id,
-        "tag", tag.tag_name
-      )
-    ) as tags
-    FROM
-      company_tag
-    JOIN
-      tag ON company_tag.tag_id = tag.id
-    GROUP BY
-      company_id
-  ) ct ON company.id = ct.company_id
-  WHERE id = '${companyId}'
-  GROUP BY company.id
-`);
-
-  companyInfo = [...companyInfo].map(item => {
-    return {
-      ...item,
-      tags: JSON.parse(item.tags),
-      images: JSON.parse(item.images),
-    };
-  });
-
-  return companyInfo;
-}
-
 const findPostionId = async postsId => {
   const [positionId] = await myDataSource.query(`
   SELECT position_id FROM posts WHERE id = '${postsId}'
@@ -581,8 +523,6 @@ module.exports = {
   locationPosts,
   careerPosts,
   getPostsPage,
-  findCompanyId,
-  postsInCompany,
   findPostionId,
   samePositionPosts,
   addView
