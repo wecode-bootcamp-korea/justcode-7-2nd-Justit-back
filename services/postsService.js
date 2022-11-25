@@ -124,14 +124,11 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
 
 const getPostsPage = async postsId => {
   const postsPage = await postsDao.getPostsPage(postsId);
-  const findCompanyId = await postsDao.findCompanyId(postsId);
-  const companyId = findCompanyId.company_id;
-  const postsInCompany = await postsDao.postsInCompany(companyId);
   const findPostionId = await postsDao.findPostionId(postsId);
   const positionId = findPostionId.position_id;
   const samePositionPosts = await postsDao.samePositionPosts(positionId);
   await postsDao.addView(postsId);
-  const result = { postsPage, postsInCompany, samePositionPosts };
+  const result = { postsPage, samePositionPosts };
   return result;
 }
 

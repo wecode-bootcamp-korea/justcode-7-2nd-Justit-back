@@ -5,8 +5,7 @@ CREATE TABLE `apply` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `posts_id` integer NOT NULL,
   `users_id` integer NOT NULL,
-  `resume_id` integer NOT NULL,
-  `apply_status_id` integer NOT NULL
+  `apply_status` tinyint NOT NULL
 );
 
 CREATE TABLE `apply_status` (
@@ -71,29 +70,20 @@ CREATE TABLE `resume` (
   `career` varchar(100) NOT NULL,
   `resume_image` varchar(100) DEFAULT NULL,
   `introduce` varchar(500) DEFAULT NULL,
-  `birth` integer NOT NULL
-);
-CREATE TABLE `resume_position` (
-  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `users_id` integer NOT NULL,
-  `position_id` integer NOT NULL
-);
-
-CREATE TABLE `resume_tech_stack` (
-  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `users_id` integer NOT NULL,
-  `tech_stack_id` integer NOT NULL
+  `birth` integer NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE `resume_career` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `users_id` integer NOT NULL,
-  `year_month` date NOT NULL,
+  `career_year_month` varchar(50) NOT NULL,
   `resume_career_name` varchar(45) NOT NULL,
-  `introduce` varchar(200) DEFAULT NULL,
-  `department` varchar(45) DEFAULT NULL,
-  `tech_stack_id` integer DEFAULT NULL,
+  `career_introduce` varchar(200) DEFAULT NULL,
+  `career_department` varchar(45) DEFAULT NULL,
+  `career_tech_stack_id` integer DEFAULT NULL,
   `result` varchar(200) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -102,11 +92,10 @@ CREATE TABLE `resume_career` (
 CREATE TABLE `resume_education` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `users_id` integer NOT NULL,
-  `year_month` date NOT NULL,
+  `education_year_month` date NOT NULL,
   `education_id` integer NOT NULL,
   `resume_education_name` varchar(45) NOT NULL,
-  `department` varchar(45) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `education_department` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 );
@@ -181,10 +170,6 @@ CREATE TABLE `resume_tech_stack` (
 
   ALTER TABLE `apply` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-  ALTER TABLE `apply` ADD FOREIGN KEY (`resume_id`) REFERENCES `resume` (`id`);
-
-  ALTER TABLE `apply` ADD FOREIGN KEY (`apply_status_id`) REFERENCES `apply_status` (`id`);
-
   ALTER TABLE `image` ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
   ALTER TABLE `company_tag` ADD FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`);
@@ -203,7 +188,7 @@ CREATE TABLE `resume_tech_stack` (
 
   ALTER TABLE `resume` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-  ALTER TABLE `resume_career` ADD FOREIGN KEY (`tech_stack_id`) REFERENCES `tech_stack` (`id`);
+  ALTER TABLE `resume_career` ADD FOREIGN KEY (`career_tech_stack_id`) REFERENCES `tech_stack` (`id`);
 
   ALTER TABLE `resume_education` ADD FOREIGN KEY (`education_id`) REFERENCES `education` (`id`);
 

@@ -14,7 +14,7 @@ const myDataSource = require('../middlewares/typeorm');
 
 const getresumeinfo = async userId => {
   let [getresume] = await myDataSource.query(
-    `SELECT 
+    `SELECT
         U.users_name, U.email, U.phone_number, 
         R.resume_image, R.introduce, R.birth, R.career, 
         P.position_id,
@@ -134,7 +134,6 @@ const updateResume = async (
 module.exports = {
   //getuserinfo,
   getresumeinfo,
-
   postResume,
   updateResume,
 };
