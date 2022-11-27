@@ -252,7 +252,7 @@ const responseFastCompany = async () => {
       company_id
     ) ct ON company.id = ct.company_id
   )as co ON co.id = posts.company_id
-  WHERE tags LIKE '%지원 응답%';
+  WHERE tags LIKE '%QUICKLY_FEEDBACK_COMPANY%';
   `);
 
   asapCompany = [...asapCompany].map(item => {
