@@ -25,4 +25,26 @@ const getMe = async (req, res) => {
   res.status(200).json({ userInfo });
 };
 
-module.exports = { signup, login, getMe };
+// 메일 변경
+const updateUserEmail = async (req, res) => {
+  const { email } = req.body;
+  const userId = req.userInfo.id;
+  utils.checkDataIsNotEmpty({ email, userId });
+
+  await mypageService.updateUserEmail(email, userId);
+
+  res.status(201).json({ message: 'UPDATE_USER_EMAIL_SUCCESSFULLY' });
+};
+
+// 계정 탈퇴
+const deleteUserById = async (req, res) => {
+  const { email } = req.body;
+  const userId = req.userInfo.id;
+  utils.checkDataIsNotEmpty({ email, userId });
+
+  await mypageService.deleteUserById(email, userId);
+
+  res.status(201).json({ message: 'DELETE_USER_SUCCESSFULLY' });
+};
+
+module.exports = { signup, login, getMe, updateUserEmail, deleteUserById };
