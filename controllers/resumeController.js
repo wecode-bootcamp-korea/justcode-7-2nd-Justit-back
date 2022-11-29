@@ -1,7 +1,6 @@
 const resumeService = require('../services/resumeService');
 const utils = require('../utils/myutils');
 
-
 //이력서 처음 들어갈때 정보 get (users_name, email)
 
 // const getuserinfo = async (req, res) => {
@@ -16,10 +15,6 @@ const getresumeinfo = async (req, res) => {
 
   res.status(200).json({ resumeInfo });
 };
-
-
-
-
 
 // 나머지 정보 등록
 const postResume = async (req, res) => {
@@ -44,16 +39,14 @@ const postResume = async (req, res) => {
 
   const userId = req.userInfo.id; //body에서 받아와야 하는 값이 아님
 
+  //***리팩토링 할 부분 : RK 는 여섯개만 설정했는데 모든 인자가 요구됨.
   utils.checkDataIsNotEmpty({
     birth,
     career,
-
     education_year_month,
     education_id,
     resume_education_name,
     education_department,
-
-
   });
 
   await resumeService.postResume(
@@ -129,10 +122,8 @@ const updateResume = async (req, res) => {
 };
 
 module.exports = {
-
   //getuserinfo,
   getresumeinfo,
-
   postResume,
   updateResume,
 };
