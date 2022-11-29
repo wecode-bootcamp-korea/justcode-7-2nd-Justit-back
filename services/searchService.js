@@ -121,7 +121,7 @@ const searchPosts = async (keyword, tag, techStack, positionId, location, career
   };
 
   if (result.length === 0) {
-    throw new Error('게시글이 없습니다.');
+    result = null;
   };
 
   return { result };

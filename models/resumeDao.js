@@ -61,7 +61,7 @@ const postResume = async (
     //position table에 값이 있어야 포린키로 끌어오기 가능
     `INSERT INTO 
     resume_position (users_id, position_id) 
-    VALUES (${userId}, ${position_id})`
+    VALUES (${userId}, ${position_id})` //***리팩토링 할 부분 : 다중으로 데이터 들어오기
   );
   let resume_tech_stack = await myDataSource.query(
     `INSERT INTO 

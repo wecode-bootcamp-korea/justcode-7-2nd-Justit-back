@@ -116,7 +116,7 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
   };
 
   if (result.length === 0) {
-    throw new Error('게시글이 없습니다.');
+    result = null;
   };
 
   return { result };
@@ -124,11 +124,17 @@ const getPosts = async (tag, techStack, positionId, location, career) => {
 
 const getPostsPage = async postsId => {
   const postsPage = await postsDao.getPostsPage(postsId);
+
+  if(postsPage.postsPage.length === 0) {
+    throw new Error ('페이지가 없습니다')
+  }
+
   const findPostionId = await postsDao.findPostionId(postsId);
   const positionId = findPostionId.position_id;
   const samePositionPosts = await postsDao.samePositionPosts(positionId);
   await postsDao.addView(postsId);
   const result = { postsPage, samePositionPosts };
+
   return result;
 }
 
