@@ -13,8 +13,8 @@ VALUES
 ("Python"),
 ("Django"),
 ("PHP"),
-("C++"),
-("C#"),
+("C_PLUS_PLUS"),
+("C_SHARP"),
 ("AWS"),
 ("MySQL"),
 ("Oracle"),
@@ -30,7 +30,7 @@ VALUES
 ("Kotlin"),
 ("RxJava"),
 ("Swift"),
-("Objective-C"),
+("Objective_C"),
 ("Rxswift"),
 ("SwiftUI"),
 ("Xcode");
@@ -38,19 +38,19 @@ VALUES
 INSERT INTO
   tag(tag_name) 
 VALUES 
-("4.5일제"),
-("재택근무"),
-("유연근무제"),
-("시차출근제"),
-("인센티브"),
-("맛있는간식냠냠"),
-("지원 응답이 빠른 기업"),
-("맥북으로개발"),
-("닉네임사용"),
-("수평적조직"),
-("누적투자금100억이상"),
-("스톡옵션제공"),
-("도서구입비지원");
+("FOUR_DOT_FIVE_DAYS"),
+("WORK_AT_HOME_COMPANY"),
+("FLEXIBLE_WORK"),
+("DIFFERENCE_WORK_TIME"),
+("INCENTIVE_COMPANY"),
+("SNACK"),
+("QUICKLY_FEEDBACK_COMPANY"),
+("MACBOOK"),
+("NICKNAME"),
+("HORIZONTAL_CULTURE"),
+("INVESTMENT_MORE_100"),
+("STOCK_OPTION"),
+("FREE_BOOK");
 
 INSERT INTO
   company(company_name, location)
@@ -416,7 +416,7 @@ VALUES
 • 토큰 경제 및 NFT 시장에 대한 이해도가 높으신 분
 • 성공에 대한 의지와 열정을 보유하신 분
 ",
-00, 10, 5, "상시", 100, 6);
+0, 10, 5, "상시", 100, 6);
 
 INSERT INTO
   posts(position_id, title, content, career_min, career_max, education_id, due_date, view, company_id) 
@@ -570,7 +570,7 @@ VALUES
 • 소프트웨어 배포경험이 있는 분(현재 사용중인)
 • 전공자(컴퓨터공학과, 전자공학과)
 ",
-00, 03, 2, "상시", 50, 12),
+0, 03, 2, "상시", 50, 12),
 ("4", "안드로이드 개발자 채용 ", 
 "
 주요업무
@@ -642,7 +642,7 @@ VALUES
 • Node 환경 개발 경험
 • AWS & Docker 인프라 개발 경험
 ",
-00, 10, 5, "상시", 100, 15),
+0, 10, 5, "상시", 100, 15),
 ("1", "개발자 모집 (백엔드)", 
 "
 주요업무
@@ -664,7 +664,7 @@ VALUES
 • DB 쿼리 최적화 경험, 데이터베이스 운영 경험
 • TDD에 대한 이해도와 UT 기반의 견고한 코딩
 ",
-00, 04, 5, "상시", 53, 16),
+0, 04, 5, "상시", 53, 16),
 ("1", "노드 개발자 채용 공고", 
 "
 주요업무
@@ -692,7 +692,7 @@ VALUES
 • aws 사용 경험
 • TeraFrom 인프라 구축 경험
 ",
-00, 10, 5, "상시", 52, 17),
+0, 10, 5, "상시", 52, 17),
 ("1", "클라우드 백엔드 엔지니어 채용", 
 "
 주요업무
@@ -729,7 +729,7 @@ VALUES
 • MVP / MVVM 패턴 등의 이해
 • Git / Github, Slack 등의 협업, 소통 및 코드리뷰 경험자
 ",
-00, 05, 5, "상시", 56, 19),
+0, 05, 5, "상시", 56, 19),
 ("3", "IT 개발자 채용", 
 "
 주요업무
@@ -755,7 +755,8 @@ VALUES
 • 장애인 우대
 • 보훈 대상자 우대
 ",
-00, 04, 3, "2022-11-30", 40, 20);
+0, 04, 3, "2022-11-30", 40, 20),
+
 
 
 

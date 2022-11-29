@@ -72,43 +72,8 @@ const deletePost = async (posts_id, userId) => {
   );
 };
 
-// 메일 변경
-const updateUserEmail = async (email, userId) => {
-  await myDataSource.query(
-    `
-
-    UPDATE
-      users
-    SET
-      email = '${email}'
-    WHERE
-      id = ${userId}
-
-
-    `
-  );
-};
-
-// 계정 탈퇴
-const deleteUserById = async (email, userId) => {
-  await myDataSource.query(
-    `
-
-    DELETE FROM
-        users
-    WHERE
-        email = '${email}'
-    AND
-        id = ${userId}
-
-    `
-  );
-};
-
 module.exports = {
   addPostScrap,
   findPostByUserId,
   deletePost,
-  updateUserEmail,
-  deleteUserById,
 };

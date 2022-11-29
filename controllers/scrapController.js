@@ -1,4 +1,4 @@
-const mypageService = require('../services/mypageService');
+const mypageService = require('../services/scrapService');
 const utils = require('../utils/myutils');
 
 // 스크랩 추가
@@ -33,32 +33,8 @@ const deletePost = async (req, res) => {
   res.status(201).json({ message: 'DELETE_SCRAP_SUCCESSFULLY' });
 };
 
-// 메일 변경
-const updateUserEmail = async (req, res) => {
-  const { email } = req.body;
-  const userId = req.userInfo.id;
-  utils.checkDataIsNotEmpty({ email, userId });
-
-  await mypageService.updateUserEmail(email, userId);
-
-  res.status(201).json({ message: 'UPDATE_USER_EMAIL_SUCCESSFULLY' });
-};
-
-// 계정 탈퇴
-const deleteUserById = async (req, res) => {
-  const { email } = req.body;
-  const userId = req.userInfo.id;
-  utils.checkDataIsNotEmpty({ email, userId });
-
-  await mypageService.deleteUserById(email, userId);
-
-  res.status(201).json({ message: 'DELETE_USER_SUCCESSFULLY' });
-};
-
 module.exports = {
   addPostScrap,
   findPostByUserId,
   deletePost,
-  updateUserEmail,
-  deleteUserById,
 };

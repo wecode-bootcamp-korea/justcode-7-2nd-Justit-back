@@ -7,7 +7,7 @@ const resumeRouter = require('./resumeRouter');
 const homePageRouter = require('./homePageRouter');
 const companyRouter = require('./companyRouter');
 const postsRouter = require('./postsRouter');
-const mypageRouter = require('./mypageRouter');
+const scrapRouter = require('./scrapRouter');
 const searchRouter = require('./searchRouter');
 const applyRouter = require('./applyRouter');
 
@@ -17,7 +17,7 @@ router.use('/resume', resumeRouter);
 router.use('/', homePageRouter);
 router.use('/company', companyRouter);
 router.use('/posts', postsRouter);
-router.use('/mypage', mypageRouter);
+router.use('/scrap', scrapRouter);
 router.use('/search', searchRouter);
 router.use('/apply', applyRouter);
 module.exports = router;
