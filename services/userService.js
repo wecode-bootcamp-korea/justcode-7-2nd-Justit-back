@@ -59,13 +59,13 @@ const getMe = async userId => {
 
 // 메일 변경
 const updateUserEmail = async (email, userId) => {
-  const updateEmail = await mypageDao.updateUserEmail(email, userId);
+  const updateEmail = await userDao.updateUserEmail(email, userId);
   return updateEmail;
 };
 
 // 계정 탈퇴
 const deleteUserById = async (email, userId) => {
-  const deleteUser = await mypageDao.deleteUserById(email, userId);
+  const deleteUser = await userDao.deleteUserById(email, userId);
   return deleteUser;
 };
 

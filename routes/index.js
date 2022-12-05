@@ -17,7 +17,7 @@ router.use('/resume', resumeRouter);
 router.use('/', homePageRouter);
 router.use('/company', companyRouter);
 router.use('/posts', postsRouter);
-router.use('/scrap', scrapRouter);
+router.use(scrapRouter);
 router.use('/search', searchRouter);
 router.use('/apply', applyRouter);
 module.exports = router;

@@ -31,7 +31,7 @@ const updateUserEmail = async (req, res) => {
   const userId = req.userInfo.id;
   utils.checkDataIsNotEmpty({ email, userId });
 
-  await mypageService.updateUserEmail(email, userId);
+  await userService.updateUserEmail(email, userId);
 
   res.status(201).json({ message: 'UPDATE_USER_EMAIL_SUCCESSFULLY' });
 };
@@ -42,7 +42,7 @@ const deleteUserById = async (req, res) => {
   const userId = req.userInfo.id;
   utils.checkDataIsNotEmpty({ email, userId });
 
-  await mypageService.deleteUserById(email, userId);
+  await userService.deleteUserById(email, userId);
 
   res.status(201).json({ message: 'DELETE_USER_SUCCESSFULLY' });
 };
