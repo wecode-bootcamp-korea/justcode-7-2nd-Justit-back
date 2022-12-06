@@ -48,13 +48,6 @@ const randomPosts = async () => {
   LIMIT 5;
   `)
 
-  ramdompost = [...ramdompost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-    };
-  });
-
   return ramdompost;
 };
 
@@ -124,14 +117,6 @@ const timeLimitPosts = async () => {
   LIMIT 8;
   `);
 
-  timeLimitPost = [...timeLimitPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return timeLimitPost;
 };
 
@@ -182,13 +167,6 @@ const popularPosts = async () => {
   ORDER BY view DESC
   LIMIT 8
 `)
-  popularPost = [...popularPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return popularPost;
 };
@@ -255,14 +233,6 @@ const responseFastCompany = async () => {
   WHERE tags LIKE '%QUICKLY_FEEDBACK_COMPANY%';
   `);
 
-  asapCompany = [...asapCompany].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return asapCompany;
 };
 
@@ -311,14 +281,6 @@ const newPosts = async () => {
   ORDER BY created_at DESC
   LIMIT 8;
 `);
-
-  posts = [...posts].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return posts;
 };

@@ -46,14 +46,6 @@ const searchPosts = async keyword => {
   WHERE (content LIKE '%${keyword}%' or title LIKE '%${keyword}%')
 `);
 
-  searchPost = [...searchPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return searchPost;
 };
 
@@ -121,14 +113,6 @@ const tagPosts = async tags => {
   WHERE NOT tags is NULL
 `)
 
-  tagPost = [...tagPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return tagPost;
 };
 
@@ -180,14 +164,6 @@ const techStackPosts = async techStacks => {
   WHERE NOT tech_stacks is NULL
 `);
 
-  techStackPost = [...techStackPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return techStackPost;
 };
 
@@ -236,14 +212,6 @@ const positionPosts = async positionId => {
   )as co ON co.id = posts.company_id
   WHERE position_id IN (${positionId})
 `);
-
-  positionPost = [...positionPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return positionPost;
 };
@@ -294,14 +262,6 @@ const locationPosts = async location => {
   WHERE location LIKE '%${location}%';
 `);
 
-  locationPost = [...locationPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return locationPost;
 };
 
@@ -351,21 +311,8 @@ const careerPosts = async career => {
   HAVING career_min <= ${career} AND ${career} <= career_max
 `);
 
-  careerPost = [...careerPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return careerPost;
 };
-
-
-
-
-
 
 module.exports = {
   searchPosts,

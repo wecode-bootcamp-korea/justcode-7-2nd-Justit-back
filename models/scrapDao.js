@@ -43,15 +43,6 @@ const findPostByUserId = async userId => {
         users_id = ${userId}
       `
     )
-    .then(posts => {
-      return [...posts].map(post => {
-        return {
-          ...post,
-          images: JSON.parse(post.images),
-          stack_list: JSON.parse(post.stack_list),
-        };
-      });
-    });
 
   return findPost;
 };
@@ -67,7 +58,7 @@ const deletePost = async (posts_id, userId) => {
         posts_id = ${posts_id}
      AND
         users_id = ${userId}
-  
+
     `
   );
 };

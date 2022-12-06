@@ -46,14 +46,6 @@ const allPosts = async () => {
   ORDER BY posts.created_at DESC;
 `)
 
-  allPost = [...allPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return allPost
 }
 
@@ -121,14 +113,6 @@ const tagPosts = async tags => {
   WHERE NOT tags is NULL
 `)
 
-  tagPost = [...tagPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return tagPost;
 };
 
@@ -180,14 +164,6 @@ const techStackPosts = async techStacks => {
   WHERE NOT tech_stacks is NULL
 `);
 
-  techStackPost = [...techStackPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return techStackPost;
 };
 
@@ -236,14 +212,6 @@ const positionPosts = async positionId => {
   )as co ON co.id = posts.company_id
 WHERE position_id IN (${positionId})
 `);
-
-  positionPost = [...positionPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return positionPost;
 };
@@ -294,14 +262,6 @@ const locationPosts = async location => {
   WHERE location LIKE '%${location}%';
 `);
 
-  locationPost = [...locationPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
-
   return locationPost;
 };
 
@@ -350,14 +310,6 @@ const careerPosts = async career => {
   )as co ON co.id = posts.company_id
   HAVING career_min <= ${career} AND ${career} <= career_max
 `);
-
-  careerPost = [...careerPost].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return careerPost;
 };
@@ -425,14 +377,6 @@ const getPostsPage = async postsId => {
   )as co ON co.id = posts.company_id
   WHERE posts.id = '${postsId}'
 `);
-  postsPage = [...postsPage].map(item => {
-    return {
-      ...item,
-      tags: JSON.parse(item.tags),
-      tech_stacks: JSON.parse(item.tech_stacks),
-      images: JSON.parse(item.images)
-    };
-  });
 
   let postPageInfo = { postsPage };
 
@@ -495,14 +439,6 @@ const samePositionPosts = async positionId => {
   WHERE position_id = '${positionId}'
   LIMIT 8
   `);
-
-  positionPosts = [...positionPosts].map(item => {
-    return {
-      ...item,
-      images: JSON.parse(item.images),
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   return positionPosts;
 }
