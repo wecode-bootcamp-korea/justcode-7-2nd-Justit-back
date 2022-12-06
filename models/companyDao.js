@@ -38,13 +38,6 @@ const getCompanyPage = async companyId => {
   WHERE id = '${companyId}'
   GROUP BY company.id
 `);
-  companyPage = [...companyPage].map(item => {
-    return {
-      ...item,
-      tags: JSON.parse(item.tags),
-      images: JSON.parse(item.images),
-    };
-  });
 
   let companyPosts = await myDataSource.query(`
   SELECT
@@ -68,12 +61,6 @@ const getCompanyPage = async companyId => {
   ) ps ON posts.id = ps.posts_id
   WHERE company_id = '${companyId}'
 `);
-  companyPosts = [...companyPosts].map(item => {
-    return {
-      ...item,
-      tech_stacks: JSON.parse(item.tech_stacks),
-    };
-  });
 
   let result = { companyPage, companyPosts };
   return result;
